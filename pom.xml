@@ -24,45 +24,27 @@
     <dependency>
       	<groupId>junit</groupId>
       	<artifactId>junit</artifactId>
-      	<version>3.8.1</version>
+      	<version>4.12</version>
       	<scope>test</scope>
     </dependency>
     
     <dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>
-		<version>1.18.20</version>
+		<version>1.16.20</version>
 		<scope>provided</scope>
 	</dependency>
-	
+<!-- 1 springboot -->
 	 <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- servlet 依赖 -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <!-- <scope>provided</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
         </dependency>
         <!-- tomcat 的支持.-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <!--springboot tomcat jsp开启支持-->
-        <!-- 引入SpringBoot内嵌Tomcat对jsp的解析依赖，不添加这个解析不了jsp --> 
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency> 
-        
+        </dependency>       
         <!-- springboot单元测试 -->
         <dependency>
 	        <groupId>org.springframework.boot</groupId>
@@ -89,9 +71,88 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+	
+<!-- 2, swagger -->
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <version>2.9.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <version>2.9.2</version>
+	</dependency>
+	<!-- 新版的只要这一个 https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+	<!-- <dependency>
+	  <groupId>io.springfox</groupId>
+	  <artifactId>springfox-boot-starter</artifactId>
+	  <version>3.0.0</version>
+	</dependency>-->
+
+<!-- 3, log -->
+  <!-- 内置的依赖, 不需要写 -->
+    <dependency>
+	 <groupId>org.springframework.boot</groupId>
+	 <artifactId>spring-boot-starter-logging</artifactId>
+	</dependency>
+	<!-- 为了druid补一个log4j -->
+    <dependency>
+	  <groupId>log4j</groupId>
+	  <artifactId>log4j</artifactId>
+	  <version>1.2.17</version>
+	</dependency>
+	
+ <!-- 4 jsp --> 
+  <!--springboot tomcat jsp开启支持-->
+        <!-- servlet 依赖 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <!-- <scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <!-- 引入SpringBoot内嵌Tomcat对jsp的解析依赖，不添加这个解析不了jsp --> 
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency> 
+
+<!-- 5 ,sql 链接 -->        
+<!-- 连接数据库的包 -->
+	 <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+     </dependency>     
+	 <dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <scope>runtime</scope>
+	 </dependency> 
+	 <dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>1.1.21</version>
+	 </dependency>
+	 <!--自启动Druid管理后台-->
+     <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>1.1.10</version>
+    </dependency>
+<!-- 5,mybatis -->        
+    <dependency>
+	    <groupId>org.mybatis.spring.boot</groupId>
+	    <artifactId>mybatis-spring-boot-starter</artifactId>
+	    <version>2.1.1</version>
+	</dependency>
   </dependencies>
   
   <build>
+    <!-- mvn打包插件 -->
   	<plugins>
   		<plugin>
   			<groupId>org.springframework.boot</groupId>
@@ -99,11 +160,12 @@
   		</plugin>
   	</plugins>
   	
+  	<!-- 打包需要添加的资源文件 -->
   	<resources>
   		<resource>
   			<directory>src/main/resources</directory>
   			<includes>
-  				<include>**/**.yml</include>
+  				<include>**/**</include>
   			</includes>
   			<filtering>true</filtering>
   		</resource>

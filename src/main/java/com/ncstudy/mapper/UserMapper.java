@@ -8,4 +8,6 @@ import com.ncstudy.pojo.User;
 public interface UserMapper {
 
 	User getUser();
+	
+	int saveUser(User user);
 }

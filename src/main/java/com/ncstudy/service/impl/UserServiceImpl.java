@@ -19,4 +19,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getUser();
 	}
 
+
+	public int saveUser(User user) {
+		
+		return userMapper.saveUser(user);
+	}
+
 }

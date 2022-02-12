@@ -5,4 +5,6 @@ import com.ncstudy.pojo.User;
 public interface UserService {
      
 	User getUser();
+	
+	int saveUser(User user);
 }

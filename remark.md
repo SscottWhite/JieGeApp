@@ -4,3 +4,4 @@
 3, jsp  添加资源文件夹webapp, yml相应配置
 4, 用Druid池 连接mysql , 在yml中配置相应数据库数据    --选择最简单的springboot配置，省去了config
 5, 用mybaits访问mysql  添加mapper,service等进行测试  --选择springBoot-mybatis连接， 配置yml
+6, 在tool里面添加一些通用工具类

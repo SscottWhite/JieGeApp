@@ -75,6 +75,8 @@ public class TestController {
 	    @RequestMapping(path = "/getUser", method=RequestMethod.GET)
 	    public String getUser(Model model) {
 	    	User user = userService.getUser();
+	    	int i = userService.saveUser(new User("locl",12,"goog","男"));
+	    	log.info("序号:" + i);
 	        model.addAttribute("msg",user.getName());
 	        return "index";
 	    }

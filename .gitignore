@@ -4,4 +4,8 @@ target/
 *.settings
 *.project
 *.classpath
-*.log
+
+
+*/*.log
+
+MyLog/

@@ -4,12 +4,26 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Login Here</title>
+		<%
+			String username="";
+			String password="";
+			
+			Cookie[] cookies = request.getCookies();
+			for(int i=0; i<cookies.length; i++){
+				if("username".equals(cookies[i].getName())){
+					username = cookies[i].getValue();
+				} else if ("password".equals(cookies[i].getName())){
+					password = cookies[i].getValue();
+				}
+			}
+		%>
 	</head>
 	<body>
 		<div>
 			<form action="/getUser" method="post">
-				<span>姓名：</span><input type="text"  name="name">
-				<span>密码：</span><input type="password" name="password" >  
+				<span>姓名：</span><input type="text" name="name" value="<%=username%>"><br/>
+				<span>密码：</span><input type="password" name="password" value="<%=password%>"> <br/>
+				<input type="checkbox" value="y" name="isLogin"> 自动登录 <br/>
 				<input type="submit" >
     			<input type="reset">
 			</form>

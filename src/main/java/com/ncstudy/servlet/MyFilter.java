@@ -10,7 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-//@WebFilter(filterName="test1",urlPatterns= {"/*"})
+@WebFilter(filterName="test1",urlPatterns= {"/login"})
 public class MyFilter implements Filter{
 
 	@Override
@@ -20,8 +20,10 @@ public class MyFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
 		System.out.println("do -- filter");
-		//chain.doFilter(request,response);	  //跳转到下一个filter
+		
+		chain.doFilter(request,response);	  //跳转到下一个filter/ 若是没有， 则到servlet
 		
 	}
 

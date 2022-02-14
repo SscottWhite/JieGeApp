@@ -3,6 +3,9 @@ package com.ncstudy.control;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +59,18 @@ public class TestController {
 	    @ApiOperation(value = "登陆")
 		@RequestMapping(path = "/login", method=RequestMethod.GET)
 		public String test1() {
+	    	
 	    	log.info("是登陆");
 			return "login/login";
 		}
 		
+	    @ApiOperation(value = "登陆")
+		@RequestMapping(path = "/logins", method=RequestMethod.GET)
+		public String test11() {
+	    	
+	    	log.info("是登陆");
+			return "login/login";
+		}
 		
 		@RequestMapping(path = "/mv", method=RequestMethod.GET)
 	    public ModelAndView test2() {
@@ -79,10 +90,10 @@ public class TestController {
 	    public String getUser(Model model, @RequestParam("name") String name, @RequestParam("password") String password) {
 	    	//User user = userService.getUser();
 	    	System.out.println(name+";"+password);
-	    	User user = userService.getUserByName(name).getList().get(0);
+	    	//User user = userService.getUserByName(name).getList().get(0);
 	    	//int i = userService.saveUser(new User("locl",12,"goog","男"));
 	    	//log.info("序号:" + i);
-	        model.addAttribute("msg",user.getName());
+	        model.addAttribute("msg",name);
 	        return "index";
 	    }
 	    

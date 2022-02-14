@@ -10,6 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @MapperScan("com.ncstudy.mapper") //扫描的mapper
 @EnableSwagger2
 @SpringBootApplication
+@ServletComponentScan("com.ncstudy.servlet")
 public class SpringBootAppStarter {
   public static void main( String[] args ) {
       SpringApplication.run(SpringBootAppStarter.class, args);

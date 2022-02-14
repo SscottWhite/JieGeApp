@@ -10,13 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.github.pagehelper.PageInfo;
 import com.ncstudy.pojo.User;
 import com.ncstudy.service.UserService;
+import com.ncstudy.vo.PageVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,10 +54,10 @@ public class TestController {
 	    }
 
 	    @ApiOperation(value = "登陆")
-		@RequestMapping(path = "/a", method=RequestMethod.GET)
+		@RequestMapping(path = "/login", method=RequestMethod.GET)
 		public String test1() {
 	    	log.info("是登陆");
-			return "index";
+			return "login/login";
 		}
 		
 		
@@ -72,12 +75,41 @@ public class TestController {
 	        return "index";
 	    }
 	    
-	    @RequestMapping(path = "/getUser", method=RequestMethod.GET)
-	    public String getUser(Model model) {
+	    @RequestMapping(path = "/getUser", method=RequestMethod.POST)
+	    public String getUser(Model model, @RequestParam("name") String name, @RequestParam("password") String password) {
+	    	//User user = userService.getUser();
+	    	System.out.println(name+";"+password);
+	    	User user = userService.getUserByName(name).getList().get(0);
+	    	//int i = userService.saveUser(new User("locl",12,"goog","男"));
+	    	//log.info("序号:" + i);
+	        model.addAttribute("msg",user.getName());
+	        return "index";
+	    }
+	    
+	    @RequestMapping(path = "/updateUser", method=RequestMethod.GET)
+	    public String updateUser(Model model) {
 	    	User user = userService.getUser();
-	    	int i = userService.saveUser(new User("locl",12,"goog","男"));
+	    	int i = userService.updateUser();
 	    	log.info("序号:" + i);
 	        model.addAttribute("msg",user.getName());
+	        return "index";
+	    }
+	    
+	    @RequestMapping(path = "/deleteUser", method=RequestMethod.GET)
+	    public String deleteUser(Model model) {
+	    	User user = userService.getUser();
+	    	int i = userService.deleteUser();
+	    	log.info("序号:" + i);
+	        model.addAttribute("msg",user.getName());
+	        return "index";
+	    }
+	    
+	    @RequestMapping(path = "/pages", method=RequestMethod.GET)
+	    public String getUserByPages(Model model) {
+	    	PageVo vo = new PageVo(1,20);
+	    	PageInfo<User> pages = userService.getUserList(-1,4);
+	    	System.out.println(pages.getList().toString());
+	        model.addAttribute("msg",pages.getList().get(0).getName());
 	        return "index";
 	    }
 }

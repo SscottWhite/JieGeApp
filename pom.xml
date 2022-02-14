@@ -18,6 +18,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+ 	<apache-poi-version>4.1.2</apache-poi-version>
+ 	<apache-commons-lang3>3.3.1</apache-commons-lang3>
   </properties>
 
   <dependencies>
@@ -143,12 +145,46 @@
         <artifactId>druid-spring-boot-starter</artifactId>
         <version>1.1.10</version>
     </dependency>
-<!-- 5,mybatis -->        
+<!-- 6,mybatis -->        
     <dependency>
 	    <groupId>org.mybatis.spring.boot</groupId>
 	    <artifactId>mybatis-spring-boot-starter</artifactId>
 	    <version>2.1.1</version>
 	</dependency>
+	
+<!-- 7,JSON -->
+	    <dependency>
+	    	<groupId>com.alibaba</groupId>
+	    	<artifactId>fastjson</artifactId>
+	    	<version>1.2.73</version>
+	    </dependency>
+	    
+<!-- 8 excel poi  -->		
+		<dependency>
+		   <groupId>org.apache.poi</groupId>
+		   <artifactId>poi</artifactId>
+		   <version>${apache-poi-version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+		   <version>${apache-poi-version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+		   <version>${apache-poi-version}</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache-commons-lang3}</version>
+        </dependency>
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper-spring-boot-starter</artifactId>
+		    <version>1.3.0</version>
+		</dependency>
   </dependencies>
   
   <build>

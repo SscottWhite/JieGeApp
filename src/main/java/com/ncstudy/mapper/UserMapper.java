@@ -1,5 +1,8 @@
 package com.ncstudy.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 import com.ncstudy.pojo.User;
@@ -10,4 +13,13 @@ public interface UserMapper {
 	User getUser();
 	
 	int saveUser(User user);
+	
+	int updateUser();
+	
+	int deleteUser();
+	
+	//@Param("num") int num   -> #{num}
+	List<User> getUserList();
+	
+	User getUserByName(@Param("name") String name);
 }

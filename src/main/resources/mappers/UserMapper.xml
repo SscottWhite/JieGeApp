@@ -14,7 +14,7 @@
 	</resultMap>
 	
     <select id="getUser" resultType="com.ncstudy.pojo.User">
-       	select id, user_name as name, user_age as age, user_permission as permission, user_gender as gender from user;
+       	select id, user_name as name, user_age as age, user_permission as permission, user_gender as gender from user order by id desc limit 1 ;
     </select>
 	
 	<insert id="saveUser" parameterType="com.ncstudy.pojo.User" useGeneratedKeys="true" keyProperty="id">
@@ -22,4 +22,19 @@
 		values(#{name}, #{age}, #{permission}, #{gender})
 	</insert>
 
+	<update id="updateUser">
+		update user set user_age = 33 where id = 2
+	</update>
+	
+	<delete id="deleteUser">
+	    delete from user where id = 3
+	</delete>
+	
+	<select id="getUserList" resultMap="userMessageMap">
+       	select id, user_name , user_age , user_permission, user_gender  from user
+    </select>
+    
+    <select id="getUserByName" resultMap="userMessageMap" parameterType="String">
+       	select id, user_name , user_age , user_permission, user_gender  from user where user_name = #{name} 
+    </select>
 </mapper>

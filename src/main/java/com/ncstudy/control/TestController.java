@@ -45,7 +45,7 @@ public class TestController {
 	        //看一下默认数据源
 	        System.out.println(dataSource.getClass());
 	        //获得连接
-	        Connection connection =   dataSource.getConnection();
+	        Connection connection =  dataSource.getConnection();
 	        System.out.println(connection);
 	
 	        DruidDataSource druidDataSource = (DruidDataSource) dataSource;
@@ -56,22 +56,7 @@ public class TestController {
 	        connection.close();
 	    }
 
-	    @ApiOperation(value = "登陆")
-		@RequestMapping(path = "/login", method=RequestMethod.GET)
-		public String test1() {
-	    	
-	    	log.info("是登陆");
-			return "login/login";
-		}
-		
-	    @ApiOperation(value = "登陆")
-		@RequestMapping(path = "/logins", method=RequestMethod.GET)
-		public String test11() {
-	    	
-	    	log.info("是登陆");
-			return "login/login";
-		}
-		
+
 		@RequestMapping(path = "/mv", method=RequestMethod.GET)
 	    public ModelAndView test2() {
 	        ModelAndView mv=new ModelAndView();

@@ -22,4 +22,6 @@ public interface UserMapper {
 	List<User> getUserList();
 	
 	User getUserByName(@Param("name") String name);
+	
+	User getUserByPwd(@Param("name") String name, @Param("password") String password);
 }

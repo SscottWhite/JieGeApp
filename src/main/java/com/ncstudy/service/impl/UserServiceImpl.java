@@ -66,4 +66,10 @@ public class UserServiceImpl implements UserService {
 		return pageInfo;
 	}
 
+	@Override
+	public User getUserByPwd(String name, String password) {
+		
+		return userMapper.getUserByPwd(name, password);
+	}
+
 }

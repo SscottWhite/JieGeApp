@@ -10,20 +10,19 @@
     String name = request.getParameter("name");
     String pwd = request.getParameter("password");
     String flag = request.getParameter("isLogin");
-	System.out.println(name+";"+pwd+";"+flag);
-	
+
     if (!"admin".equals(name) || !"123".equals(pwd)) {
         response.sendRedirect("/error1");
     } else {
         if ("y".equals(flag)) {
-            //创建两个Cookie对象
             Cookie nameCookie = new Cookie("username", name);
             //设置Cookie的有效期为3天
-            nameCookie.setMaxAge(60 * 60 * 24 * 3);
+            nameCookie.setMaxAge(30);
             Cookie pwdCookie = new Cookie("password", pwd);
-            pwdCookie.setMaxAge(60 * 60 * 24 * 3);
+            pwdCookie.setMaxAge(30);
+                   
             response.addCookie(nameCookie);
-            response.addCookie(pwdCookie);
+            response.addCookie(pwdCookie); 
         }
         response.sendRedirect("/success");
     }

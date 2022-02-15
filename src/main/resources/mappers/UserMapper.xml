@@ -16,6 +16,10 @@
     <select id="getUser" resultType="com.ncstudy.pojo.User">
        	select id, user_name as name, user_age as age, user_permission as permission, user_gender as gender from user order by id desc limit 1 ;
     </select>
+    
+    <select id="getUserByPwd" resultType="com.ncstudy.pojo.User">
+       	select id, user_name as name, user_age as age, user_permission as permission, user_gender as gender from user where user_name=#{name} and user_password=#{pwd} ;
+    </select>
 	
 	<insert id="saveUser" parameterType="com.ncstudy.pojo.User" useGeneratedKeys="true" keyProperty="id">
 		insert into user(user_name, user_age, user_permission, user_gender)

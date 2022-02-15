@@ -20,7 +20,7 @@
 	</head>
 	<body>
 		<div>
-			<form action="/login3" method=>
+			<form action="/login3" method="get">
 				<span>姓名：</span><input type="text" name="name" value="<%=username%>"><br/>
 				<span>密码：</span><input type="password" name="password" value="<%=password%>"> <br/>
 				<input type="checkbox" value="y" name="isLogin"> 自动登录 <br/>

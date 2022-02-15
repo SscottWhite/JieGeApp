@@ -18,4 +18,6 @@ public interface UserService {
 	PageInfo<User> getUserList(int num, int size);
 	
 	PageInfo<User> getUserByName(String name);
+	
+	User getUserByPwd(String name, String password);
 }

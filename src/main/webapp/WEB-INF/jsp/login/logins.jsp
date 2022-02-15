@@ -6,8 +6,7 @@
 		<title>Login Here</title>
 		<%
 			String username="";
-			String password="";
-			
+			String password="";			
 			Cookie[] cookies = request.getCookies();
 			for(int i=0; i<cookies.length; i++){
 				if("username".equals(cookies[i].getName())){
@@ -20,7 +19,7 @@
 	</head>
 	<body>
 		<div>
-			<form action="/login3" method="get">
+			<form action="/loginTo" method="post">
 				<span>姓名：</span><input type="text" name="name" value="<%=username%>"><br/>
 				<span>密码：</span><input type="password" name="password" value="<%=password%>"> <br/>
 				<input type="checkbox" value="y" name="isLogin"> 自动登录 <br/>

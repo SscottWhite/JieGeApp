@@ -11,14 +11,25 @@
 		<result column="user_age" property="age"/>
 		<result column="user_permission" property="permission"/>
 		<result column="user_gender" property="gender"/>
+		<result column="user_password" property="password"/>
 	</resultMap>
 	
+	<sql id="users">
+		id, user_name , user_age , user_permission, user_gender, user_password
+	</sql>
+	
+	<sql id="useras">
+		id as id, user_name as name, user_age as age, user_permission as permission, user_gender as gender, user_password as password
+	</sql>
+	
     <select id="getUser" resultType="com.ncstudy.pojo.User">
-       	select id, user_name as name, user_age as age, user_permission as permission, user_gender as gender from user order by id desc limit 1 ;
+       	select <include refid="useras"/> 
+       	from user order by id desc limit 1 ;
     </select>
     
     <select id="getUserByPwd" resultType="com.ncstudy.pojo.User">
-       	select id, user_name as name, user_age as age, user_permission as permission, user_gender as gender from user where user_name=#{name} and user_password=#{pwd} ;
+       	select <include refid="useras"/>
+       	 from user where user_name=#{name} and user_password=#{pwd} ;
     </select>
 	
 	<insert id="saveUser" parameterType="com.ncstudy.pojo.User" useGeneratedKeys="true" keyProperty="id">
@@ -35,10 +46,12 @@
 	</delete>
 	
 	<select id="getUserList" resultMap="userMessageMap">
-       	select id, user_name , user_age , user_permission, user_gender  from user
+       	select <include refid="users"/>
+       	from user
     </select>
     
     <select id="getUserByName" resultMap="userMessageMap" parameterType="String">
-       	select id, user_name , user_age , user_permission, user_gender  from user where user_name = #{name} 
+       	select <include refid="users"/>
+       	from user where user_name = #{name} 
     </select>
 </mapper>

@@ -14,6 +14,7 @@ public class User {
 	private int age;
 	private String permission;
 	private String gender;
+	private String password;
 	
 	public User(String name, int age, String permission, String gender) {
 		super();

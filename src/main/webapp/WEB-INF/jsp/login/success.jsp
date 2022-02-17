@@ -10,6 +10,8 @@
 		</script>
 	</head>
 	<body>
-		success,恭喜进去-->  ${name}
+		<% for(int i=0;i<=2;i++){ %>
+			<span>123</span><br/>
+		<% } %>
 	</body>
 </html>

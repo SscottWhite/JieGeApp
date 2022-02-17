@@ -16,6 +16,23 @@
 				}
 			}
 		%>
+		
+		<%
+			String path = request.getContextPath();
+			String basePath =  request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+			String api = request.getRemoteAddr();
+		%>
+		
+		<%!
+			public void tset(){
+				//out.
+			}
+		%>
+		
+		<%
+			
+		%>
+
 	</head>
 	<body>
 		<div>
@@ -26,6 +43,10 @@
 				<input type="submit" >
     			<input type="reset">
 			</form>
+			
+			<span>
+				<%=path %>, <%=basePath %>, <%=api %>
+			</span>
 		</div>
 	</body>
 </html>

@@ -22,28 +22,16 @@
 			String basePath =  request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 			String api = request.getRemoteAddr();
 		%>
-		
-		<%!
-			public void tset(){
-				//out.
-			}
-		%>
-		
-		<%
-			
-		%>
-
 	</head>
 	<body>
 		<div>
 			<form action="/loginTo" method="post">
 				<span>姓名：</span><input type="text" name="name" value="<%=username%>"><br/>
-				<span>密码：</span><input type="password" name="password" value="<%=password%>"> <br/>
+				<span>密码：</span><input type="password" name="password" value="<%=password%>" autocomplete="off"> <br/>
 				<input type="checkbox" value="y" name="isLogin"> 自动登录 <br/>
 				<input type="submit" >
     			<input type="reset">
-			</form>
-			
+			</form>			
 			<span>
 				<%=path %>, <%=basePath %>, <%=api %>
 			</span>

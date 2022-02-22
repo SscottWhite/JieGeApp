@@ -7,6 +7,6 @@
 6, 在tool里面添加一些通用工具类
 7, 加入最简单的事务注解
 8, 加入简单的pagehelper，注意包裹搜索
-9, 编写jsp代码 --主要是登陆，跳转页面，等
-10, 权限处理，单点登录， 加入cookie, 加入servlet, filter
+9, 编写jsp代码 --主要是登陆，跳转页面，等      -- 就当是复习一下jsp吧，最终我还是决定舍弃
+10, 权限处理，单点登录， 加入cookie, 加入servlet, filter   --- 权限方面还是用security,切合spring
 11, 

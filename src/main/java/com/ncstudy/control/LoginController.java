@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Api
 @Controller
 @Slf4j
-public class TestController2 {
+public class LoginController  {
 	
 	@Autowired
 	private UserService userService;
@@ -74,7 +74,7 @@ public class TestController2 {
 		        }
 				req.getRequestDispatcher("/success").forward(req, resq);
 			} else 
-				resq.sendRedirect("/logins");
+				resq.sendRedirect("/errors");
 		}	    		
 
    	}
@@ -87,7 +87,7 @@ public class TestController2 {
    		return mv;
    	}
    	
-   	@RequestMapping(path = "/error1", method=RequestMethod.GET)
+   	@RequestMapping(path = "/errors", method=RequestMethod.GET)
    	public String error(HttpServletRequest req, HttpServletResponse resq) {
    		return "login/error";
    	}

@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ncstudy.pojo.User;
 import com.ncstudy.service.UserService;
 
-@WebFilter(filterName="test1",urlPatterns= {"/login","/success"})
+@WebFilter(filterName="test1",urlPatterns= {"/login"})
 public class MyFilter implements Filter{
 	
 	@Autowired

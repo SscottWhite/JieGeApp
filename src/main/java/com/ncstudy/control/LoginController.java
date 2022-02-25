@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ncstudy.pojo.User;
 import com.ncstudy.service.UserService;
+import com.ncstudy.vo.UserVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -79,10 +81,10 @@ public class LoginController  {
 
    	}
 
-   	@RequestMapping(path = "/success", method=RequestMethod.POST)
+   	@RequestMapping(path = "/success", method=RequestMethod.POST) 
    	public ModelAndView success(HttpServletRequest req, HttpServletResponse resq) {
    		ModelAndView mv = new ModelAndView();
-   		mv.addObject("name", req.getAttribute("username"));
+   		mv.addObject("name", req.getAttribute("name"));
 		mv.setViewName("login/success");
    		return mv;
    	}

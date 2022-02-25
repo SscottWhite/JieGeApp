@@ -31,5 +31,6 @@
 		
 		<c:out value="c-out"></c:out>
 
+		<%=request.getParameter("name") %>
 	</body>
 </html>

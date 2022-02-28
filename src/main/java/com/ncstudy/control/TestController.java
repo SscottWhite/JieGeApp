@@ -35,10 +35,7 @@ public class TestController {
 		//DI注入数据源
 	    @Autowired
 	    DataSource dataSource;
-	    
-	    @Autowired
-	    private UserService userService;
-	
+	   	
 	    @RequestMapping(path="/hello", method=RequestMethod.GET)
 	    @ResponseBody
 	    public void contextLoads() throws SQLException {
@@ -55,57 +52,63 @@ public class TestController {
 	        //关闭连接
 	        connection.close();
 	    }
+	    
+	    @RequestMapping(path="/helloworld", method=RequestMethod.GET)
+	    @ResponseBody
+	    public String hello() {
+	        return "helloworld";
+	    }
 
 
-		@RequestMapping(path = "/mv", method=RequestMethod.GET)
-	    public ModelAndView test2() {
-	        ModelAndView mv=new ModelAndView();
-	        mv.addObject("msg","Hello , SpringBoot!!!");
-	        mv.setViewName("index");
-	        return mv;
-	    }
-	 
-	    @RequestMapping(path = "/model", method=RequestMethod.GET)
-	    public String test3(Model model) {
-	        model.addAttribute("msg","Hello , World!!!");
-	        return "index";
-	    }
-	    
-	    @RequestMapping(path = "/getUser", method=RequestMethod.POST)
-	    public String getUser(Model model, @RequestParam("name") String name, @RequestParam("password") String password) {
-	    	//User user = userService.getUser();
-	    	System.out.println(name+";"+password);
-	    	//User user = userService.getUserByName(name).getList().get(0);
-	    	//int i = userService.saveUser(new User("locl",12,"goog","男"));
-	    	//log.info("序号:" + i);
-	        model.addAttribute("msg",name);
-	        return "index";
-	    }
-	    
-	    @RequestMapping(path = "/updateUser", method=RequestMethod.GET)
-	    public String updateUser(Model model) {
-	    	User user = userService.getUser();
-	    	int i = userService.updateUser();
-	    	log.info("序号:" + i);
-	        model.addAttribute("msg",user.getName());
-	        return "index";
-	    }
-	    
-	    @RequestMapping(path = "/deleteUser", method=RequestMethod.GET)
-	    public String deleteUser(Model model) {
-	    	User user = userService.getUser();
-	    	int i = userService.deleteUser();
-	    	log.info("序号:" + i);
-	        model.addAttribute("msg",user.getName());
-	        return "index";
-	    }
-	    
-	    @RequestMapping(path = "/pages", method=RequestMethod.GET)
-	    public String getUserByPages(Model model) {
-	    	PageVo vo = new PageVo(1,20);
-	    	PageInfo<User> pages = userService.getUserList(-1,4);
-	    	System.out.println(pages.getList().toString());
-	        model.addAttribute("msg",pages.getList().get(0).getName());
-	        return "index";
-	    }
+//		@RequestMapping(path = "/mv", method=RequestMethod.GET)
+//	    public ModelAndView test2() {
+//	        ModelAndView mv=new ModelAndView();
+//	        mv.addObject("msg","Hello , SpringBoot!!!");
+//	        mv.setViewName("index");
+//	        return mv;
+//	    }
+//	 
+//	    @RequestMapping(path = "/model", method=RequestMethod.GET)
+//	    public String test3(Model model) {
+//	        model.addAttribute("msg","Hello , World!!!");
+//	        return "index";
+//	    }
+//	    
+//	    @RequestMapping(path = "/getUser", method=RequestMethod.POST)
+//	    public String getUser(Model model, @RequestParam("name") String name, @RequestParam("password") String password) {
+//	    	//User user = userService.getUser();
+//	    	System.out.println(name+";"+password);
+//	    	//User user = userService.getUserByName(name).getList().get(0);
+//	    	//int i = userService.saveUser(new User("locl",12,"goog","男"));
+//	    	//log.info("序号:" + i);
+//	        model.addAttribute("msg",name);
+//	        return "index";
+//	    }
+//	    
+//	    @RequestMapping(path = "/updateUser", method=RequestMethod.GET)
+//	    public String updateUser(Model model) {
+//	    	User user = userService.getUser();
+//	    	int i = userService.updateUser();
+//	    	log.info("序号:" + i);
+//	        model.addAttribute("msg",user.getName());
+//	        return "index";
+//	    }
+//	    
+//	    @RequestMapping(path = "/deleteUser", method=RequestMethod.GET)
+//	    public String deleteUser(Model model) {
+//	    	User user = userService.getUser();
+//	    	int i = userService.deleteUser();
+//	    	log.info("序号:" + i);
+//	        model.addAttribute("msg",user.getName());
+//	        return "index";
+//	    }
+//	    
+//	    @RequestMapping(path = "/pages", method=RequestMethod.GET)
+//	    public String getUserByPages(Model model) {
+//	    	PageVo vo = new PageVo(1,20);
+//	    	PageInfo<User> pages = userService.getUserList(-1,4);
+//	    	System.out.println(pages.getList().toString());
+//	        model.addAttribute("msg",pages.getList().get(0).getName());
+//	        return "index";
+//	    }
 }

@@ -4,9 +4,6 @@ spring:
     - production
     - prod
 ## 1.2
-  mvc:    view:      prefix: /WEB-INF/jsp/
-      suffix: .jsp
-## 1.3
   datasource:
     # 自定义数据源
     type: com.alibaba.druid.pool.DruidDataSource 

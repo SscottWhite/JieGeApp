@@ -24,6 +24,7 @@ import com.ncstudy.pojo.User;
 import com.ncstudy.service.UserService;
 import com.ncstudy.vo.PageVo;
 
+import cn.hutool.extra.qrcode.QrCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -111,4 +112,22 @@ public class TestController {
 //	        model.addAttribute("msg",pages.getList().get(0).getName());
 //	        return "index";
 //	    }
+	    
+	    @RequestMapping(value = "/getLoginQr" ,method = RequestMethod.GET)
+	    public void createCodeImg(HttpServletRequest request, HttpServletResponse response){
+	        response.setHeader("Pragma", "No-cache");
+	        response.setHeader("Cache-Control", "no-cache");	 
+	        response.setDateHeader("Expires", 0);
+	        response.setContentType("image/jpeg");	 
+	        try {
+	            //这里没啥操作 就是生成一个UUID插入 数据库的表里
+	            //String uuid = userService.createQrImg();
+	            response.setHeader("uuid", "123");
+	            // 这里是开源工具类 hutool里的QrCodeUtil 
+	            // 网址：http://hutool.mydoc.io/
+	            QrCodeUtil.generate("123", 300, 300, "jpg",response.getOutputStream());
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 }

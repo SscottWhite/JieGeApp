@@ -37,7 +37,6 @@ spring:
      maxPoolPreparedStatementPerConnectionSize: 20
      useGlobalDataSourceStat: true
      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-
 ## 2.1
 logging:
   config: classpath:logback-spring.xml
@@ -46,7 +45,6 @@ logging:
     com.ncstudy: trace
 ## 日志级别从低到高分为：TRACE < DEBUG < INFO < WARN < ERROR < FATAL 。如果设置为 WARN ，则低于 WARN 的信息都不会输出。
 # private final static Logger logger = LoggerFactory.getLogger(xx.class);  
-
 
 ## 3.1
 mybatis: 
@@ -61,3 +59,16 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
   offset-as-page-num: true
+
+##自定义属性jwt
+jwt:
+   # 密匙KEY
+  secret: JWTSecret
+  # HeaderKEY
+  tokenHeader: Authorization
+  # Token前缀字符
+  tokenPrefix: white
+  # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
+  expiration: 86400
+  # 配置不需要认证的接口
+  antMatchers: /index,/login/**,/favicon.ico

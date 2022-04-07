@@ -215,6 +215,25 @@
 	    <version>3.3.3</version>
 	</dependency>
 	
+<!-- 11  https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.12.0</version>
+	</dependency>
+	
+<!-- 12 jwt  https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+    <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-jwt</artifactId>
+         <version>1.0.9.RELEASE</version>
+    </dependency>
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt</artifactId>
+	    <version>0.9.1</version>
+	</dependency>
+	
   </dependencies>
   
   <build>

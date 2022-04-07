@@ -54,7 +54,8 @@ public class TestController {
 	        connection.close();
 	    }
 	    
-	    @RequestMapping(path="/helloworld", method=RequestMethod.GET)
+	
+	    @RequestMapping(path={"/","/helloworld"}, method=RequestMethod.GET)
 	    @ResponseBody
 	    public String hello() {
 	        return "helloworld";

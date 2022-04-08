@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,31 +39,52 @@ public class TestController {
 	    @Autowired
 	    DataSource dataSource;
 	   	
-	    @RequestMapping(path="/hello", method=RequestMethod.GET)
+	    @RequestMapping(path={"/","/helloworld"}, method=RequestMethod.GET)
+	    @ResponseBody
+	    public String hello() {
+	        return "HelloWorld";
+	    }
+	    
+	    @PreAuthorize("hasRole('ROLE_vip2')")
+	    @RequestMapping(path="/hello1", method=RequestMethod.GET)
 	    @ResponseBody
 	    public void contextLoads() throws SQLException {
 	        //看一下默认数据源
 	        System.out.println(dataSource.getClass());
 	        //获得连接
-	        Connection connection =  dataSource.getConnection();
-	        System.out.println(connection);
-	
-	        DruidDataSource druidDataSource = (DruidDataSource) dataSource;
-	        System.out.println("druidDataSource 数据源最大连接数：" + druidDataSource.getMaxActive());
-	        System.out.println("druidDataSource 数据源初始化连接数：" + druidDataSource.getInitialSize());
-	
-	        //关闭连接
-	        connection.close();
+//	        Connection connection =  dataSource.getConnection();
+//	        System.out.println(connection);
+//	
+//	        DruidDataSource druidDataSource = (DruidDataSource) dataSource;
+//	        System.out.println("druidDataSource 数据源最大连接数：" + druidDataSource.getMaxActive());
+//	        System.out.println("druidDataSource 数据源初始化连接数：" + druidDataSource.getInitialSize());
+//	
+//	        //关闭连接
+//	        connection.close();
+	        System.out.println(new BCryptPasswordEncoder().encode("123456"));
 	    }
 	    
-	
-	    @RequestMapping(path={"/","/helloworld"}, method=RequestMethod.GET)
+
+	    @PreAuthorize("hasRole('ROLE_vip1')")
+	    @RequestMapping(path={"/hello2*"}, method=RequestMethod.GET)
 	    @ResponseBody
-	    public String hello() {
-	        return "helloworld";
+	    public String hello2() {
+	        return "hasRole('ROLE_vip1')";
 	    }
 
-
+	    @PreAuthorize("hasRole('ROLE_vip1') or hasRole('ROLE_vip2')")
+	    @RequestMapping(path="/hello3", method=RequestMethod.GET)
+	    @ResponseBody
+	    public String hello3() {
+	        return "hasRole('ROLE_vip1') or hasRole('ROLE_vip2'))";
+	    }
+	    
+	    @PreAuthorize("hasRole('ROLE_vip1') and hasRole('ROLE_vip2')")
+	    @RequestMapping(path="/hello4", method=RequestMethod.GET)
+	    @ResponseBody
+	    public String hello4() {
+	        return "hasRole('ROLE_vip1') and hasRole('ROLE_vip2'))";
+	    }
 //		@RequestMapping(path = "/mv", method=RequestMethod.GET)
 //	    public ModelAndView test2() {
 //	        ModelAndView mv=new ModelAndView();

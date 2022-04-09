@@ -22,7 +22,7 @@ public class MyUserDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		List<SimpleGrantedAuthority> list = new ArrayList();
-		list.add(new SimpleGrantedAuthority("ROLE_vip2"));
+		list.add(new SimpleGrantedAuthority("vip2"));
 		return new User("kuangshen","123456",list);
 	}
 

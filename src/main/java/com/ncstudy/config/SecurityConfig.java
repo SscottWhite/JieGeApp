@@ -24,8 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    protected void configure(HttpSecurity http) throws Exception {
 	   // 定制请求的授权规则
 	   // 首页所有人可以访问
-	   http.authorizeRequests().antMatchers("/").permitAll() //其他页面都要拦截，【需要在最后设置这个】
-       .anyRequest().authenticated();
+	   http.authorizeRequests()
+	   	   .antMatchers("/").permitAll() //其他页面都要拦截，【需要在最后设置这个】
+           .anyRequest().authenticated();
 			 // .antMatchers("/hello/**").hasRole("vip1")
 			 // .antMatchers("/getLoginQr/**").hasRole("vip2");
 		   
@@ -40,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	   //记住我
 	   http.rememberMe().rememberMeParameter("remember"); //其实是帮我们添加了cookie
 	  // http.formLogin().loginPage("/toLogin"); //把默认的登陆页面指向我们自己的
+	   
+	   http.httpBasic();
   }
    
 //   @Override

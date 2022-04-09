@@ -2,8 +2,6 @@ package com.ncstudy.config.jwtconfig;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import com.ncstudy.pojo.SelfUserEntity;
 
 import io.jsonwebtoken.Jwts;

@@ -3,8 +3,8 @@ spring:
   profiles:    active:    - dev
     - production
     - prod
-  jpa:    hibernate:      ddl-auto: update
-    show-sql: true
+#  jpa:#    hibernate:#      ddl-auto: update
+#    show-sql: true
 ## 1.2
   datasource:
     # 自定义数据源

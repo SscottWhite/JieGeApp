@@ -1,4 +1,4 @@
-package com.ncstudy.service;
+package com.ncstudy.config.quartzconfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -33,7 +33,7 @@ public class MyJobFactory   extends   SpringBeanJobFactory  implements  Applicat
         /**
          * 	将job实例交付给spring ioc
          */
-        log.info("将job实例交付给spring ioc");
+      //  log.info("将job实例交付给spring ioc");   //每个任务执行时都会执行
         beanFactory.autowireBean(job);
         return job;
     }

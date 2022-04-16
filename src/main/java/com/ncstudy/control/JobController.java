@@ -1,11 +1,13 @@
 package com.ncstudy.control;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ncstudy.config.quartzconfig.QuartzManage;
 import com.ncstudy.myjobs.TestJob;
-import com.ncstudy.service.QuartzManage;
 
 
 @RestController
@@ -20,6 +22,11 @@ public class JobController {
           quartzService.addJob(TestJob.class, "job1", "test", "0/5 * * * * ?");
 
     }
+    
+//    @RequestMapping("/add/{type}")
+//    public void startJobType(@PathVariable(name="type") String type) throws ClassNotFoundException {
+//          quartzService.addJob((Class<? extends QuartzJobBean>) Class.forName("com.ncstudy.myjobs."+type), "job_"+type, "test", "0/5 * * * * ?");
+//    }
     
     @RequestMapping("/updatejob")
     public void updatejob() {

@@ -1,4 +1,4 @@
-package com.ncstudy.config;
+package com.ncstudy.config.securityconfig;
 
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationProvider;

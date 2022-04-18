@@ -124,7 +124,9 @@ public class QuartzManage {
 					  				.newTrigger()
 					  				.withIdentity(jobName, jobGroupName)
 					  				.startAt(DateBuilder.futureDate(1, IntervalUnit.SECOND)) //一秒后执行
-					  				.withSchedule(CronScheduleBuilder.cronSchedule(jobTime))
+					  				.withSchedule(CronScheduleBuilder
+					  								.cronSchedule(jobTime)
+					  								.withMisfireHandlingInstructionDoNothing())  //启动是不会执行
 					  				.startNow()
 					  				.build();
 			  

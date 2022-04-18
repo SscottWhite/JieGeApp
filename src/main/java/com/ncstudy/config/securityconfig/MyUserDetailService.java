@@ -1,4 +1,4 @@
-package com.ncstudy.config;
+package com.ncstudy.config.securityconfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class MyUserDetailService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+		System.out.println("UserDetail下的: "+username);
 		List<SimpleGrantedAuthority> list = new ArrayList();
 		list.add(new SimpleGrantedAuthority("vip2"));
 		return new User("kuangshen","123456",list);

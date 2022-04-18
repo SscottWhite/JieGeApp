@@ -23,10 +23,10 @@ public class JobController {
 
     }
     
-//    @RequestMapping("/add/{type}")
-//    public void startJobType(@PathVariable(name="type") String type) throws ClassNotFoundException {
-//          quartzService.addJob((Class<? extends QuartzJobBean>) Class.forName("com.ncstudy.myjobs."+type), "job_"+type, "test", "0/5 * * * * ?");
-//    }
+    @RequestMapping("/add/{type}")
+    public void startJobType(@PathVariable(name="type") String type) throws ClassNotFoundException {
+         quartzService.addJob((Class<? extends QuartzJobBean>) Class.forName("com.ncstudy.myjobs."+type), "job_"+type, "test", "0/5 * * * * ?");
+    }
     
     @RequestMapping("/updatejob")
     public void updatejob() {

@@ -1,7 +1,5 @@
 package com.ncstudy.service;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.github.pagehelper.PageInfo;
 import com.ncstudy.pojo.User;
 

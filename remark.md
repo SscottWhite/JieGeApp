@@ -10,4 +10,5 @@
 9, 权限处理，单点登录， 加入cookie, 加入servlet, filter   -- 权限方面还是用security,切合spring
 10, 加入任务管理器 Quartz                                -- 1:sql表  2:配置文件  3:配置类  4:全局属性配置  5:代码中加入运行方法
 11, 拆分application分布, 条理更清晰                      --  -jdbc, -quartz
-12, 
+12, 理解权限验证框架security + jwt 
+	12.1  通过配置securityConfig  其中包括很多情况的处理类, 

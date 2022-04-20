@@ -8,6 +8,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import com.alibaba.fastjson.JSON;
 
+/**
+ * JWTToken生成器
+ * 加入了包括userId, username, 一些权限和失效时间
+ * @author KJS_352
+ * @time 2022-04-20 09:21:14
+ */
 public class JWTTokenUtil {
 	
 	private static final long EXPIRE_TIME= 15*60*1000;

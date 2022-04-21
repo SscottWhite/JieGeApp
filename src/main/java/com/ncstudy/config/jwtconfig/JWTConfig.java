@@ -19,5 +19,12 @@ public class JWTConfig {
 	public static Integer expiration;
 	//不需要认证的接口
 	public static String antMatchers;
+	//加密盐
+	public static String salt;
 	
+	public static String authorities;
+	
+	public static String authority;
+	
+	public static String author;
 }

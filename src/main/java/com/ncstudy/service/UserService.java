@@ -1,5 +1,7 @@
 package com.ncstudy.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 import com.ncstudy.pojo.User;
 
@@ -13,9 +15,11 @@ public interface UserService {
 	
 	int deleteUser();
 	
-	PageInfo<User> getUserList(int num, int size);
+	PageInfo<List<User>> getUserList(int num, int size);
 	
-	PageInfo<User> getUserByName(String name);
+	PageInfo<User> getUser(String name, int num, int size);
 	
 	User getUserByPwd(String name, String password);
+	
+	User getUserByName(String name);
 }

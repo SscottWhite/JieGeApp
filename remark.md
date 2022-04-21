@@ -12,3 +12,11 @@
 11, 拆分application分布, 条理更清晰                      --  -jdbc, -quartz
 12, 理解权限验证框架security + jwt 
 	12.1  通过配置securityConfig  其中包括很多情况的处理类, 
+	12.2 简单的, 我们按着顺序看   
+		1 先从登陆开始 -> 直接拦截到SecurityConfig里, 
+		2 点击登录后 -> 在userAuthenticationProvider捕捉和验证登陆者信息 --> 在里面封装好一个用户类  --如果不加jwt, 其实这里就省了还原数据的过程
+		3 上面的捕捉会产生数据 -> 成功责备成功的handler捕捉, 失败报错则被失败登陆的handler捕捉, 
+		  3.1 成功的handler会返回新的token, 以便刷新时间  
+		  3.2 失败的handler会根据报错信息返回一些内容
+13, 在securityConfig中可以看到在User...Provider中 返回的User...Token
+	而在JWT的拦截类 JWT...Filter中也返回 User...Token, 所以是先拦截这个, 返回数据, 就不需要再重新验证了

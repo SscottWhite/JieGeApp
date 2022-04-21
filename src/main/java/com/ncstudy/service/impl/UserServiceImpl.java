@@ -1,5 +1,7 @@
 package com.ncstudy.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public PageInfo<User> getUserList(int num, int size) {
+	public PageInfo<List<User>> getUserList(int num, int size) {
 		
 //		PageHelper.startPage(num, size);
 //		List<User> list = userMapper.getUserList();
@@ -50,7 +52,7 @@ public class UserServiceImpl implements UserService {
 //		PageInfo<User> pageInfo = new PageInfo<User>(list);
 		
 		//就是通过sql干涉，帮你加上limit ?,?
-		PageInfo<User> pageInfo = PageHelper
+		PageInfo<List<User>> pageInfo = PageHelper
 					.startPage(num, size)
 					.doSelectPageInfo(() -> userMapper.getUserList());
 		
@@ -58,9 +60,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public PageInfo<User> getUserByName(String name) {
+	public PageInfo<User> getUser(String name, int num , int size) {
 		
-		PageInfo<User> pageInfo = PageHelper.startPage(1, 1).doSelectPageInfo(() -> userMapper.getUserByName(name));
+		PageInfo<User> pageInfo = PageHelper.startPage(num, size).doSelectPageInfo(() -> userMapper.getUserByName(name));
 		return pageInfo;
 	}
 
@@ -68,6 +70,12 @@ public class UserServiceImpl implements UserService {
 	public User getUserByPwd(String name, String password) {
 		
 		return userMapper.getUserByPwd(name, password);
+	}
+
+	@Override
+	public User getUserByName(String name) {
+		
+		return userMapper.getUserByName(name);
 	}
 
 }

@@ -42,22 +42,21 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		String tokenHeader = request.getHeader("");
-		if(null != tokenHeader && tokenHeader.startsWith("")) {
+		String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
+		if(null != tokenHeader && tokenHeader.startsWith(JWTConfig.tokenPrefix)) {
 			try {
-				String token = tokenHeader.replace("", "");
+				String token = tokenHeader.replace(JWTConfig.tokenPrefix, "");
 				Claims claims = Jwts.parser()
-								.setSigningKey("")
+								.setSigningKey(JWTConfig.secret)  //加入密匙解析
 								.parseClaimsJws(token)
 								.getBody();
 				
-				String username = claims.getSubject();
-				String userId = claims.getId();
+				String username = claims.getSubject(); //用户名
+				String userId = claims.getId();  //用户ID
 				
 				if(StringUtil.isNotEmpty(username) && StringUtil.isNotEmpty(userId)) {
-					List<GrantedAuthority> authorities = new ArrayList<>();
-					
-					String authority = claims.get("authorities").toString();
+					List<GrantedAuthority> authorities = new ArrayList<>();					
+					String authority = claims.get(JWTConfig.authorities).toString(); //用户授权
 					if(StringUtil.isNotEmpty(authority)) {
 						List<Map<String,String>> authorityMap = JSONObject.parseObject(authority, List.class);
 						for(Map<String,String> role : authorityMap) {

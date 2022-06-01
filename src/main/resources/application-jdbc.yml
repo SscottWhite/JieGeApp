@@ -1,9 +1,11 @@
 spring: 
-   datasource:
+   datasource: 
     # 自定义数据源
     type: com.alibaba.druid.pool.DruidDataSource 
     #导入springboot-druid
     druid:
+  #  username: nRhK0iyRnyE=
+  #  password: 9XR5m1pkH6MZgwrSB_numQ== 
      username: ncstudy
      password: wiska123
      url: jdbc:mysql://47.102.155.32:3306/JieGeApp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8

@@ -6,8 +6,8 @@
 <mapper namespace="com.ncstudy.mapper.UserMapper">
 
 	<resultMap id="userMessageMap" type="com.ncstudy.pojo.User">
-		<id column="id" property="id"/>
-		<result column="user_name" property="name"/>
+		<id column="id" property="userId"/>
+		<result column="user_name" property="username"/>
 		<result column="user_age" property="age"/>
 		<result column="user_permission" property="permission"/>
 		<result column="user_gender" property="gender"/>
@@ -19,7 +19,7 @@
 	</sql>
 	
 	<sql id="useras">
-		id as id, user_name as name, user_age as age, user_permission as permission, user_gender as gender, user_password as password
+		id as userId, user_name as username, user_age as age, user_permission as permission, user_gender as gender, user_password as password
 	</sql>
 	
     <select id="getUser" resultType="com.ncstudy.pojo.User">
@@ -34,7 +34,7 @@
 	
 	<insert id="saveUser" parameterType="com.ncstudy.pojo.User" useGeneratedKeys="true" keyProperty="id">
 		insert into user(user_name, user_age, user_permission, user_gender)
-		values(#{name}, #{age}, #{permission}, #{gender})
+		values(#{username}, #{age}, #{permission}, #{gender})
 	</insert>
 
 	<update id="updateUser">

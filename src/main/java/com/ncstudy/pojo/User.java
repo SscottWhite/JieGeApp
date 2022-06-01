@@ -17,24 +17,13 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Long userId;
+	private String username;
+	private String password;
 	private int age;
+	private String status;   //状态:NORMAL正常  PROHIBIT禁用
 	private String permission;
 	private String gender;
-	private String password;
-	
-	/**
-	 * 用户ID
-	 */
-	private Long userId;
-	/**
-	 * 用户名
-	 */
-	private String username;
-	/**
-	 * 状态:NORMAL正常  PROHIBIT禁用
-	 */
-	private String status;
-
 	
 	public User(String name, int age, String permission, String gender) {
 		super();

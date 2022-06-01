@@ -29,11 +29,13 @@ public class SelfUserDetailsService implements UserDetailsService{
 	public SelfUserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		User user = userService.getUserByName(username);
+
 		if(user != null) {
 			SelfUserEntity selfUserEntity = new SelfUserEntity();
 			BeanUtils.copyProperties(user, selfUserEntity);
 			return selfUserEntity;
 		}
+		
 		return null;
 	}
 

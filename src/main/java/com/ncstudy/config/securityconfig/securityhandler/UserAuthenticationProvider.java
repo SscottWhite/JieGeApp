@@ -18,10 +18,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.github.pagehelper.util.StringUtil;
 import com.ncstudy.config.securityconfig.SelfUserDetailsService;
 import com.ncstudy.pojo.SelfUserEntity;
 import com.ncstudy.pojo.User;
 import com.ncstudy.service.UserService;
+import com.ncstudy.toolutils.DES3;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -48,12 +50,16 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		String password = (String) authentication.getCredentials();// 密码
 		
 		//查询并验证的代码
-		SelfUserEntity userEntity = selfUserDetailsService.loadUserByUsername(username); // 为什么要走这一步		
+		SelfUserEntity userEntity = selfUserDetailsService.loadUserByUsername(username); // 为什么要走这一步	
+		
 		if(userEntity == null) 
 			throw new UsernameNotFoundException("用户名不存在"); 
-		if(!new BCryptPasswordEncoder().matches(password, userEntity.getPassword()))
+		
+		//if(!new BCryptPasswordEncoder().matches(password, userEntity.getPassword()))
+		if( !StringUtil.isEmpty(userEntity.getPassword()) || !password.equals(DES3.decryptThreeDESECB(userEntity.getPassword(),DES3.DES3KEY)))
 			throw new BadCredentialsException("密码不正确");
-		if(userEntity.getStatus().equals("PROHIBIT")) 
+		
+		if( !StringUtil.isEmpty(userEntity.getStatus()) || "PROHIBIT".equals(userEntity.getStatus())) 
 			throw new LockedException("用户被冻结!");
 		
 		Set<GrantedAuthority> authorities = new HashSet<>();

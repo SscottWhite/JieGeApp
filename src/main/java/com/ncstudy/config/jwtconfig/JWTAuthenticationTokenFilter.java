@@ -43,6 +43,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
+		log.info("Token过滤器启动:" + tokenHeader);
 		if(null != tokenHeader && tokenHeader.startsWith(JWTConfig.tokenPrefix)) {
 			try {
 				String token = tokenHeader.replace(JWTConfig.tokenPrefix, "");

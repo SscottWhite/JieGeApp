@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.ncstudy.toolutils.DES3;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UnitTest {
@@ -43,5 +45,11 @@ public class UnitTest {
 	@After
 	public void after() {
 		System.out.println("任何执行后再执行");
+	}
+	
+	
+	public static void main(String[] args) {
+		System.out.println(DES3.encryptThreeDESECB("1",DES3.DES3KEY));
+		System.out.println(DES3.decryptThreeDESECB("nmfd1V1bxhk=",DES3.DES3KEY));
 	}
 }

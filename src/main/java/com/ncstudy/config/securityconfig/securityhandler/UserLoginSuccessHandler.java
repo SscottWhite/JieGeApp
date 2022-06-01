@@ -32,8 +32,11 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
+	//	JWTTokenUtil jtUtil = new JWTTokenUtil();
 		SelfUserEntity selfUserEntity = (SelfUserEntity) authentication.getPrincipal();
+		System.out.println(selfUserEntity.toString());
 		String token = JWTTokenUtil.createAccessToken(selfUserEntity);
+		System.out.println("rtoken:  "+token);
 		token = JWTConfig.tokenPrefix + token;
 		Map<String, Object> map = new HashMap<>();
 		map.put("code", "200");

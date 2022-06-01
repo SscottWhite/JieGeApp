@@ -56,11 +56,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 			throw new UsernameNotFoundException("用户名不存在"); 
 		
 		//if(!new BCryptPasswordEncoder().matches(password, userEntity.getPassword()))
-		if( !StringUtil.isEmpty(userEntity.getPassword()) || !password.equals(DES3.decryptThreeDESECB(userEntity.getPassword(),DES3.DES3KEY)))
+		if( StringUtil.isEmpty(password) || !password.equals(DES3.decryptThreeDESECB(userEntity.getPassword(),DES3.DES3KEY)))
 			throw new BadCredentialsException("密码不正确");
 		
-		if( !StringUtil.isEmpty(userEntity.getStatus()) || "PROHIBIT".equals(userEntity.getStatus())) 
-			throw new LockedException("用户被冻结!");
+//		if( StringUtil.isEmpty(userEntity.getStatus()) || "PROHIBIT".equals(userEntity.getStatus())) 
+//			throw new LockedException("用户被冻结!");
 		
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		

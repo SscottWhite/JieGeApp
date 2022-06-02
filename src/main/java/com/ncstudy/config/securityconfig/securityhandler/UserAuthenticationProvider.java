@@ -40,9 +40,13 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 
 	@Autowired
 	private	SelfUserDetailsService selfUserDetailsService;
+	
 	@Autowired
 	private	UserService userService;
 		
+	/**
+	 * 验证身份, 返回全部通用的Authentication
+	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
@@ -59,13 +63,13 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		if( StringUtil.isEmpty(password) || !password.equals(DES3.decryptThreeDESECB(userEntity.getPassword(),DES3.DES3KEY)))
 			throw new BadCredentialsException("密码不正确");
 		
-//		if( StringUtil.isEmpty(userEntity.getStatus()) || "PROHIBIT".equals(userEntity.getStatus())) 
-//			throw new LockedException("用户被冻结!");
-		
-		Set<GrantedAuthority> authorities = new HashSet<>();
+		if( StringUtil.isEmpty(userEntity.getStatus()) || "PROHIBIT".equals(userEntity.getStatus())) 
+			throw new LockedException("用户被冻结!");				
 		
 		//这里是加入权限的代码, role_前缀必须加, 但在controller里的话就不用加了
 		//List<SysRoleEntity> 
+		//权限可以在数据库里找  ...........
+		Set<GrantedAuthority> authorities = new HashSet<>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_"+"ADMIN"));
 		
 		return new UsernamePasswordAuthenticationToken(userEntity,password,authorities);

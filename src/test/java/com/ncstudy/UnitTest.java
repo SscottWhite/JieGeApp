@@ -51,5 +51,6 @@ public class UnitTest {
 	public static void main(String[] args) {
 		System.out.println(DES3.encryptThreeDESECB("1",DES3.DES3KEY));
 		System.out.println(DES3.decryptThreeDESECB("nmfd1V1bxhk=",DES3.DES3KEY));
+		System.out.println("whiteeyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIyIiwic3ViIjoibG9jbCIsImlhdCI6MTY1NDE0ODQ1NCwiaXNzIjoiU3Njb3R0IiwiYXV0aG9yaXRpZXMiOiJudWxsIiwiZXhwIjoxNjU0MTQ5MzU0fQ.N_YQqhgpATYim_ZM7C9MzJGOcaVuGHOYel5epbwWMugJbVxmqIyUvWpFq7KXVZpAm5wllC0tfXbJa50Eljp5Hgb".length());
 	}
 }

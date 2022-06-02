@@ -12,23 +12,28 @@
 		<result column="user_permission" property="permission"/>
 		<result column="user_gender" property="gender"/>
 		<result column="user_password" property="password"/>
+		<result column="status" property="status"/>
 	</resultMap>
 	
-	<sql id="users">
-		id, user_name , user_age , user_permission, user_gender, user_password
-	</sql>
 	
-	<sql id="useras">
-		id as userId, user_name as username, user_age as age, user_permission as permission, user_gender as gender, user_password as password
+	
+	<sql id="users2">
+		id as userId
+		, user_name as username
+		, user_age as age
+		, user_permission as permission
+		, user_gender as gender
+		, user_password as password
+		, status
 	</sql>
 	
     <select id="getUser" resultType="com.ncstudy.pojo.User">
-       	select <include refid="useras"/> 
+       	select <include refid="users2"/> 
        	from user order by id desc limit 1 ;
     </select>
     
     <select id="getUserByPwd" resultType="com.ncstudy.pojo.User">
-       	select <include refid="useras"/>
+       	select <include refid="users2"/>
        	 from user where user_name=#{name} and user_password=#{pwd} ;
     </select>
 	
@@ -44,6 +49,10 @@
 	<delete id="deleteUser">
 	    delete from user where id = 3
 	</delete>
+	
+	<sql id="users">
+		id, user_name , user_age , user_permission, user_gender, user_password, status
+	</sql>
 	
 	<select id="getUserList" resultMap="userMessageMap">
        	select <include refid="users"/>

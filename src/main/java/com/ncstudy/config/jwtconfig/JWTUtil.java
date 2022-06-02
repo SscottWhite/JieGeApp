@@ -12,13 +12,21 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTUtil implements Serializable {
+	
     private String secret;
     private Long expiration;
     private String header;
 
+    /**
+     * 生成token
+     */
     private String generateToken(Map<String, Object> claims) {
         Date expirationDate = new Date(System.currentTimeMillis() + expiration);
-        return Jwts.builder().setClaims(claims).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder()
+        		.setClaims(claims)
+        		.setExpiration(expirationDate)
+        		.signWith(SignatureAlgorithm.HS512, secret)
+        		.compact();
     }
 
     /**
@@ -29,8 +37,11 @@ public class JWTUtil implements Serializable {
     private Claims getClaimsFromToken(String token) {
         Claims claims;
         try {
-            claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-
+            claims = Jwts.parser()
+            		.setSigningKey(secret)
+            		.parseClaimsJws(token)
+            		.getBody();
+            
         } catch (Exception e) {
             claims = null;
         }
@@ -59,12 +70,16 @@ public class JWTUtil implements Serializable {
 
         } catch (Exception e) {
             username = null;
-
         }
         return username;
 
     }
 
+    /**
+     * 是否过期
+     * @param token
+     * @return
+     */
     public Boolean isTokenExpired(String token) {
         try {
             Claims claims = getClaimsFromToken(token);
@@ -81,10 +96,8 @@ public class JWTUtil implements Serializable {
             Claims claims = getClaimsFromToken(token);
             claims.put("created", new Date());
             refreshedToken = generateToken(claims);
-
         } catch (Exception e) {
             refreshedToken = null;
-
         }
         return refreshedToken;
     }

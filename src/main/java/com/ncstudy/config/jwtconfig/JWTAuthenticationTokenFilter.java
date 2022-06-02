@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +36,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 
+	@Autowired
+	private JWTConfig jWTConfig;
+	
 	public JWTAuthenticationTokenFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
 	}
@@ -42,13 +46,13 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
+		String tokenHeader = request.getHeader(jWTConfig.getTokenHeader());  //获取 Authorization对应的 value
 		log.info("Token过滤器启动:" + tokenHeader);
-		if(null != tokenHeader && tokenHeader.startsWith(JWTConfig.tokenPrefix)) {
+		if(null != tokenHeader && tokenHeader.startsWith(jWTConfig.getTokenPrefix())) {
 			try {
-				String token = tokenHeader.replace(JWTConfig.tokenPrefix, "");
+				String token = tokenHeader.replace(jWTConfig.getTokenPrefix(), "");
 				Claims claims = Jwts.parser()
-								.setSigningKey(JWTConfig.secret)  //加入密匙解析
+								.setSigningKey(jWTConfig.getSecret())  //加入密匙解析
 								.parseClaimsJws(token)
 								.getBody();
 				
@@ -57,7 +61,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 				
 				if(StringUtil.isNotEmpty(username) && StringUtil.isNotEmpty(userId)) {
 					List<GrantedAuthority> authorities = new ArrayList<>();					
-					String authority = claims.get(JWTConfig.authorities).toString(); //用户授权
+					String authority = claims.get(jWTConfig.getAuthorities()).toString(); //用户授权
 					if(StringUtil.isNotEmpty(authority)) {
 						List<Map<String,String>> authorityMap = JSONObject.parseObject(authority, List.class);
 						for(Map<String,String> role : authorityMap) {
@@ -71,7 +75,10 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 					selfUserEntity.setUsername(username);
 					selfUserEntity.setAuthorities(authorities);
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(selfUserEntity, userId, authorities);
-					SecurityContextHolder.getContext().setAuthentication(authentication);
+					
+					SecurityContextHolder  
+						.getContext()
+						.setAuthentication(authentication);
 				} 
 			} catch (ExpiredJwtException e) {
 				log.info("Token过期");

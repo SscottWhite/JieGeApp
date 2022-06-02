@@ -10,21 +10,21 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "jwt")
 public class JWTConfig {
 	//密匙key
-	public static String secret;
+	public  String secret;
 	//TokenKey
-	public static String tokenHeader;
+	public  String tokenHeader;
 	//Token前缀
-	public static String tokenPrefix;
+	public  String tokenPrefix;
 	//过期时间
-	public static Integer expiration;
+	public  Integer expiration;
 	//不需要认证的接口
-	public static String antMatchers;
+	public  String antMatchers;
 	//加密盐
-	public static String salt;
+	public  String salt;
 	
-	public static String authorities;
+	public  String authorities;
 	
-	public static String authority;
+	public  String authority;
 	
-	public static String author;
+	public  String author;
 }

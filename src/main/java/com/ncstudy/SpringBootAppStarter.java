@@ -10,12 +10,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@MapperScan("com.ncstudy.mapper") //扫描的mapper
-@EnableSwagger2
-@SpringBootApplication
-//(exclude = SecurityAutoConfiguration.class)
-@ServletComponentScan("com.ncstudy.servlet")
-@EnableConfigurationProperties
+@MapperScan("com.ncstudy.mapper")  //扫描的mapper
+@EnableSwagger2                    //开启swagger
+@SpringBootApplication             //(exclude = SecurityAutoConfiguration.class)
+//@ServletComponentScan("com.ncstudy.servlet")
+@EnableConfigurationProperties     //使@ConfigurationProperties(prefix = "xxx")注解的类生效
 public class SpringBootAppStarter {
   public static void main( String[] args ) {
       SpringApplication.run(SpringBootAppStarter.class, args);

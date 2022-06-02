@@ -1,11 +1,19 @@
 package com.ncstudy.config.jwtconfig;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+import com.ncstudy.config.securityconfig.securityhandler.UserLoginFailureHandler;
 import com.ncstudy.pojo.SelfUserEntity;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
+
 import com.alibaba.fastjson.JSON;
 
 /**
@@ -14,17 +22,17 @@ import com.alibaba.fastjson.JSON;
  * @author KJS_352
  * @time 2022-04-20 09:21:14
  */
-public class JWTTokenUtil {
+@Slf4j
+public class JWTTokenUtil  {
 	
-	private static final long EXPIRE_TIME = JWTConfig.expiration;
+	// bug: 加了两个static final 会报错  NoClassDefFoundError,  记录一下
+	//private static final long EXPIRE_TIME = JWTConfig.expiration;
+    //private static final String TOKEN_SECRET = JWTConfig.salt;  //密钥盐
 	
-    private static final String TOKEN_SECRET = JWTConfig.salt;  //密钥盐
-	
-	public static String createAccessToken(SelfUserEntity selfUserEntity){
-		String token = "";
-		try {
-	        // 登陆成功生成JWT
-	        token = Jwts.builder()
+	public  String createAccessToken(SelfUserEntity selfUserEntity,JWTConfig jWTConfig){
+
+	      // 登陆成功生成JWT
+		 String  token = Jwts.builder()
 	                // 放入用户ID
 	                .setId(selfUserEntity.getUserId()+"")
 	                // 主题 用户名
@@ -32,18 +40,15 @@ public class JWTTokenUtil {
 	                // 签发时间
 	                .setIssuedAt(new Date())
 	                // 签发者
-	                .setIssuer(JWTConfig.author)
+	                .setIssuer(jWTConfig.getAuthor())
 	                // 自定义属性 放入用户拥有权限
-	               // .claim(JWTConfig.authorities, JSON.toJSONString(selfUserEntity.getAuthorities()))
+	                .claim(jWTConfig.getAuthorities(), JSON.toJSONString(selfUserEntity.getAuthorities()))
 	                // 失效时间
-	                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_TIME*1000))
+	                .setExpiration(new Date(System.currentTimeMillis() + jWTConfig.getExpiration()*1000))
 	                // 签名算法和密钥  HS512
-	                .signWith(SignatureAlgorithm.HS512, TOKEN_SECRET)  
+	                .signWith(SignatureAlgorithm.HS512, jWTConfig.getSalt())  
 	                
 	                .compact();
-		} catch (Exception e) {
-			System.out.println(e.getStackTrace());
-		} 
         return token;
     }
 }

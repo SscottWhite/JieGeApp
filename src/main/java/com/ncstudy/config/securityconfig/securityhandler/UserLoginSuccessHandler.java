@@ -46,8 +46,8 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 		JWTTokenUtil jWTTokenUtil = new JWTTokenUtil();
 		SelfUserEntity selfUserEntity = (SelfUserEntity) authentication.getPrincipal(); //获取主要信息, 就是在验证的时候放进去了
 		String token =  jWTConfig.getTokenPrefix() + jWTTokenUtil.createAccessToken(selfUserEntity,jWTConfig); //通过新的信息生成token
+		
 		log.info("------认证成功的authentication:"+authentication.toString());
-		log.info("------认证成功的token:"+token);
 		Map<String, Object> map = new HashMap<>();  //返回前端
 			map.put("code", "200");
 			map.put("msg", "登陆成功");

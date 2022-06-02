@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.ncstudy.config.jwtconfig.JWTAuthenticationTokenFilter;
+import com.ncstudy.config.jwtconfig.JWTConfig;
 import com.ncstudy.config.securityconfig.securityhandler.UserAuthAccessDeniedHandler;
 import com.ncstudy.config.securityconfig.securityhandler.UserAuthenticationEntryPointHandler;
 import com.ncstudy.config.securityconfig.securityhandler.UserAuthenticationProvider;
@@ -33,6 +35,8 @@ import com.ncstudy.config.securityconfig.securityhandler.UserLogoutSuccessHandle
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	@Autowired
+    private JWTConfig jWTConfig;
 	 /**
      * 自定义登录成功处理器   成功
      */
@@ -113,8 +117,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		   	        // .antMatchers("/hello/**").hasRole("vip1")
 					// .antMatchers("/getLoginQr/**").hasRole("vip2");
 		   	   		.anyRequest()	    //2.5 任何请求
-		   	   		.authenticated()    /// 3 都要认证
-		   	   	.and()	
+		   	   		.authenticated()    /// 3 都要认证		   	   		
+		   	   	.and()			   	   	
 			    .httpBasic()
 		       		.authenticationEntryPoint(userAuthenticationEntryPointHandler)  //用户认证
 		        .and()
@@ -135,10 +139,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		       		.accessDeniedHandler(userAuthAccessDeniedHandler)//无权限的自定义处理类
 		       .and()
 		       .rememberMe()
-		       		.rememberMeParameter("remember") //其实是帮我们添加了cookie  
+		       		.rememberMeParameter("remember") //其实是帮我们添加了cookie  \
 		       .and()
 		       .cors() //跨域
 		       .and()
+		       .addFilter(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig))
 		       .csrf()  
 		       		.disable();  //关闭csrf功能:跨站请求伪造,默认只能通过post方式提交logout请求
 	  }

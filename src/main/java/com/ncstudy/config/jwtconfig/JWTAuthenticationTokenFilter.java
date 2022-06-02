@@ -1,6 +1,7 @@
 package com.ncstudy.config.jwtconfig;
 
 import java.io.IOException;
+import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,23 +37,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 
-	@Autowired
+
 	private JWTConfig jWTConfig;
 	
-	public JWTAuthenticationTokenFilter(AuthenticationManager authenticationManager) {
+	public JWTAuthenticationTokenFilter(AuthenticationManager authenticationManager, JWTConfig jWTConfig) {
 		super(authenticationManager);
+		this.jWTConfig = jWTConfig;
 	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
 		String tokenHeader = request.getHeader(jWTConfig.getTokenHeader());  //获取 Authorization对应的 value
+		
 		log.info("Token过滤器启动:" + tokenHeader);
+		
 		if(null != tokenHeader && tokenHeader.startsWith(jWTConfig.getTokenPrefix())) {
 			try {
 				String token = tokenHeader.replace(jWTConfig.getTokenPrefix(), "");
 				Claims claims = Jwts.parser()
-								.setSigningKey(jWTConfig.getSecret())  //加入密匙解析
+								.setSigningKey(jWTConfig.getSalt())  //加入密匙解析
 								.parseClaimsJws(token)
 								.getBody();
 				
@@ -63,10 +68,13 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 					List<GrantedAuthority> authorities = new ArrayList<>();					
 					String authority = claims.get(jWTConfig.getAuthorities()).toString(); //用户授权
 					if(StringUtil.isNotEmpty(authority)) {
+						log.info("username的信息:"+username);
+						log.info("userId的信息:"+userId);
+						log.info("authority的信息:"+authority);
 						List<Map<String,String>> authorityMap = JSONObject.parseObject(authority, List.class);
 						for(Map<String,String> role : authorityMap) {
 							if(!StringUtils.isEmpty(role)) {
-								authorities.add(new SimpleGrantedAuthority(role.get("")));
+								authorities.add(new SimpleGrantedAuthority(role.get("Role_")));
 							}
 						}
 					}
@@ -74,6 +82,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 					selfUserEntity.setUserId(Long.parseLong(userId));
 					selfUserEntity.setUsername(username);
 					selfUserEntity.setAuthorities(authorities);
+					log.info("selfUserEntity的信息:"+selfUserEntity.toString());
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(selfUserEntity, userId, authorities);
 					
 					SecurityContextHolder  
@@ -81,10 +90,13 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 						.setAuthentication(authentication);
 				} 
 			} catch (ExpiredJwtException e) {
+				e.printStackTrace();
 				log.info("Token过期");
-			} catch (Exception e) {
+			}  catch (Exception e) {
+				e.printStackTrace();
 				log.info("Token无效");
-			}
+			}	
+			
 		}	
 		chain.doFilter(request, response);
 		return ;

@@ -3,17 +3,17 @@ jwt:
    ## 密匙KEY
   secret: JWTSecret
   ## HeaderKEY
-  tokenHeader: Authorization
+  tokenHeader: Token   ##返回前端的前缀
   ## Token前缀字符
-  tokenPrefix: white
+  tokenPrefix: white         ##token前缀
   ## 过期时间 单位秒 1天后过期=86400 7天后过期=604800  15分钟 900
-  expiration: 900
+  expiration: 604800
   ## 配置不需要认证的接口
   antMatchers: /index,/login/**,/favicon.ico
   ## 1997过去了,我很想它
   salt: salt1997
   
-  authorities: authorities
+  authorities: authorities    ##jwt的前缀
   
   authority: authority
   

@@ -5,15 +5,24 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ncstudy.config.jwtconfig.JWTConfig;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping
 public class ExcelTestController {
+	
+	@Autowired
+	private JWTConfig jWTConfig;
 
 	@PostMapping("getExcel")
 	public void getExcelContent(@RequestParam("file")MultipartFile file) {
@@ -22,6 +31,12 @@ public class ExcelTestController {
 		System.out.println(file.getName());
 		System.out.println(file.getOriginalFilename());
 		System.out.println(file.getSize());
+	}
+	
+	@RequestMapping("getConfig")
+	public void getConfig(HttpServletRequest request, HttpSession session) {
+		
+		log.info(request.getHeader(jWTConfig.getTokenHeader()));
 	}
 	
 	@RequestMapping("getHeader")

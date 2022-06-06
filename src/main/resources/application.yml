@@ -35,3 +35,11 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
   offset-as-page-num: true
+
+#主要是解决springboot tomcat自带的cookie 影响操作
+#这个意思是 只有这个路径携带cookie
+server:
+  servlet: 
+    session: 
+      cookie: 
+        path: /nothing

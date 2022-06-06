@@ -72,7 +72,7 @@ public class TestController {
 	        return "hasRole('ROLE_vip1')";
 	    }
 
-	    @PreAuthorize("hasRole('ROLE_vip1') or hasRole('ROLE_vip2')")
+	    @PreAuthorize("hasRole('ROLE_sys:user:info') or hasRole('ROLE_vip2')")
 	    @RequestMapping(path="/hello3", method=RequestMethod.GET)
 	    @ResponseBody
 	    public String hello3() {

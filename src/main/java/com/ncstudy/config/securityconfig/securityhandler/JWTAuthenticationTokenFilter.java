@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -100,6 +101,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 						.setAuthentication(authentication);
 					
 					log.info("解析token完成:"+authentication.toString());
+					
 				} 
 			} catch (ExpiredJwtException e) {
 			//	e.printStackTrace();
@@ -116,10 +118,8 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter{
 	            Map<String, Object> map = new HashMap<>();  //返回前端
 				map.put("Token无效", fullStack);
 				ResultUtil.responseJson(response,ResultUtil.resultError(map));		
-			}	
-			
-		}	
+			}						
+		} 
 		chain.doFilter(request, response);
-		return ;
 	}	
 }

@@ -20,6 +20,8 @@ import com.ncstudy.config.securityconfig.securityhandler.UserLoginFailureHandler
 import com.ncstudy.config.securityconfig.securityhandler.UserLoginSuccessHandler;
 import com.ncstudy.config.securityconfig.securityhandler.UserLogoutSuccessHandler;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 /**
  * 记住两步
@@ -28,7 +30,7 @@ import com.ncstudy.config.securityconfig.securityhandler.UserLogoutSuccessHandle
  * @author KJS_352
  * @time 2022-04-19 15:51:42
  */
-
+@Slf4j
 @Configuration
 @EnableWebSecurity // 开启WebSecurity模式
 //prePostEnabled属性决定Spring Security在接口前注解是否可用@PreAuthorize,@PostAuthorize等注解,设置为true,会拦截加了这些注解的接口
@@ -112,6 +114,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	  */
 	 @Override
 	 protected void configure(HttpSecurity http) throws Exception {
+		 
 		   http.authorizeRequests() // 2 ,授权管理
 			   		.antMatchers("/").permitAll()   // 拦截路径
 		   	        // .antMatchers("/hello/**").hasRole("vip1")
@@ -142,10 +145,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		       		.rememberMeParameter("remember") //其实是帮我们添加了cookie  \
 		       .and()
 		       .cors() //跨域
+		       
 		       .and()
 		       .addFilter(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig))
+		       
 		       .csrf()  
 		       		.disable();  //关闭csrf功能:跨站请求伪造,默认只能通过post方式提交logout请求
+		   
+		   http.headers().cacheControl();
+		   
+		 //  http.addFilterBefore(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig), beforeFilter)
 	  }
 	   
 	//   @Override

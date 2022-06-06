@@ -22,4 +22,6 @@ public interface UserService {
 	User getUserByPwd(String name, String password);
 	
 	User getUserByName(String name);
+	
+	List<String> getUserAuthorities(Long id);
 }

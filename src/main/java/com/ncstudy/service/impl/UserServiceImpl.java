@@ -78,4 +78,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getUserByName(name);
 	}
 
+	@Override
+	public List<String> getUserAuthorities(Long id) {
+		
+		return userMapper.getUserAuthorities(id);
+	}
+
 }

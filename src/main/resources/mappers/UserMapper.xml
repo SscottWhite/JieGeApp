@@ -63,4 +63,19 @@
        	select <include refid="users"/>
        	from user where user_name = #{name} 
     </select>
+    
+    <!-- 
+    SELECT b.`role_name` FROM sys_user_role a 
+			INNER JOIN sys_role b 
+			ON a.`role_id` = b.`role_id` 
+			WHERE a.`user_id` = #{id};
+     -->
+    <select id="getUserAuthorities"  resultType="java.lang.String" parameterType="java.lang.Long">
+    	SELECT permission FROM sys_menu  WHERE `menu_id` IN (
+		   SELECT a.`menu_id` FROM sys_role_menu a 
+		   INNER JOIN sys_user_role b 
+		   ON a.`role_id` = b.`role_id`
+		   WHERE b.`user_id` = #{id}
+		)
+    </select>
 </mapper>

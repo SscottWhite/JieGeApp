@@ -1,5 +1,7 @@
 package com.ncstudy.config.securityconfig;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,11 +13,14 @@ import com.ncstudy.pojo.SelfUserEntity;
 import com.ncstudy.pojo.User;
 import com.ncstudy.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 封装了一个系统数据 UserDetailsService
  * @author KJS_352
  * @time 2022-04-21 10:54:02
  */
+@Slf4j
 @Component
 public class SelfUserDetailsService implements UserDetailsService{
 
@@ -29,7 +34,7 @@ public class SelfUserDetailsService implements UserDetailsService{
 	public SelfUserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		User user = userService.getUserByName(username);
-
+		
 		if(user != null) {
 			SelfUserEntity selfUserEntity = new SelfUserEntity();
 			BeanUtils.copyProperties(user, selfUserEntity);

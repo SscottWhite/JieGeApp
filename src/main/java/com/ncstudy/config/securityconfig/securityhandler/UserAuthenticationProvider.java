@@ -70,7 +70,15 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		//List<SysRoleEntity> 
 		//权限可以在数据库里找  ...........
 		Set<GrantedAuthority> authorities = new HashSet<>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_"+"ADMIN"));
+		ArrayList<String> list = (ArrayList<String>) userService.getUserAuthorities(userEntity.getUserId());
+		
+		for(String role: list) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_"+role));		
+		}
+//		authorities.add(new SimpleGrantedAuthority("ROLE_"+"ADMIN"));
+//		authorities.add(new SimpleGrantedAuthority("ROLE_"+"ADMIN1"));
+//		authorities.add(new SimpleGrantedAuthority("ROLE_"+"ADMIN2"));
+		userEntity.setAuthorities(authorities);
 		
 		return new UsernamePasswordAuthenticationToken(userEntity,password,authorities);
 	}

@@ -24,4 +24,6 @@ public interface UserMapper {
 	User getUserByName(@Param("name") String name);
 	
 	User getUserByPwd(@Param("name") String name, @Param("pwd") String password);
+	
+	List<String> getUserAuthorities(@Param("id") Long id);
 }

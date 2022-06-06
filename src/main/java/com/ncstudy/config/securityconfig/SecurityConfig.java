@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.ncstudy.config.jwtconfig.JWTAuthenticationTokenFilter;
 import com.ncstudy.config.jwtconfig.JWTConfig;
+import com.ncstudy.config.securityconfig.securityhandler.JWTAuthenticationTokenFilter;
 import com.ncstudy.config.securityconfig.securityhandler.UserAuthAccessDeniedHandler;
 import com.ncstudy.config.securityconfig.securityhandler.UserAuthenticationEntryPointHandler;
 import com.ncstudy.config.securityconfig.securityhandler.UserAuthenticationProvider;

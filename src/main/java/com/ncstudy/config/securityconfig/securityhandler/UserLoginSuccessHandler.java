@@ -2,6 +2,7 @@ package com.ncstudy.config.securityconfig.securityhandler;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import com.ncstudy.config.jwtconfig.JWTConfig;
-import com.ncstudy.config.jwtconfig.JWTTokenUtil;
+import com.ncstudy.config.jwtconfig.JWTUtil;
 import com.ncstudy.pojo.LoginInfo;
 import com.ncstudy.pojo.SelfUserEntity;
 import com.ncstudy.service.LoginInfoService;
@@ -43,16 +45,18 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 										Authentication authentication) throws IOException, ServletException {
 
-		JWTTokenUtil jWTTokenUtil = new JWTTokenUtil();
+		JWTUtil jWTUtil = new JWTUtil();		
 		SelfUserEntity selfUserEntity = (SelfUserEntity) authentication.getPrincipal(); //获取主要信息, 就是在验证的时候放进去了
-		String token =  jWTConfig.getTokenPrefix() + jWTTokenUtil.createAccessToken(selfUserEntity,jWTConfig); //通过新的信息生成token
 		
-		log.info("------认证成功的authentication:"+authentication.toString());
+		//可以在验证的时候放进去, 也可以在这放进去,只要保证数据是一样的
+		//Collection<GrantedAuthority> list1 =  (Collection<GrantedAuthority>) authentication.getAuthorities();
+
+		String token =  jWTConfig.getTokenPrefix() + jWTUtil.createAccessToken(selfUserEntity,jWTConfig); //通过新的信息生成token
+
 		Map<String, Object> map = new HashMap<>();  //返回前端
 			map.put("code", "200");
 			map.put("msg", "登陆成功");
-			map.put(jWTConfig.getTokenHeader(), token);
-						
+			map.put(jWTConfig.getTokenHeader(), token);						
 		ResultUtil.responseJson(response, map);
 		
 		//简单保存下

@@ -6,9 +6,9 @@ spring:
     druid:
   #  username: nRhK0iyRnyE=
   #  password: 9XR5m1pkH6MZgwrSB_numQ== 
-     username: ncstudy
-     password: wiska123
-     url: jdbc:mysql://47.102.155.32:3306/JieGeApp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+     username: root #ncstudy
+     password: WISKA123 #wiska123
+     url: jdbc:mysql://localhost:3306/JieGeApp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8  #47.102.155.32
      driver-class-name: com.mysql.jdbc.Driver
      #Spring Boot 默认是不注入这些属性值的，需要自己绑定
      #druid 数据源专有配置

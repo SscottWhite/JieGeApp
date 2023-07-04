@@ -1,6 +1,7 @@
 spring: 
   #用的是spring-boot-starter-quartz 持久化,  springboot自带的, 下面设置和properties表一样
   quartz:
+    auto-startup: false
     #持久化到数据库方式
     job-store-type: jdbc
     initialize-schema: embedded

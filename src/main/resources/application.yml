@@ -1,10 +1,15 @@
 spring:
 ## 1.1
-  profiles:    active:
+  profiles:
+    active:
     - quartz  ##定时器
     - jdbc    ##数据库
-    - jwt     
-#  jpa:#    hibernate:#      ddl-auto: update
+    - jwt
+  scheduling:
+    enabled: false
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
 #    show-sql: true
 ## 1.2
   redis: 
@@ -12,7 +17,8 @@ spring:
     port: 6380
     database: 0
     password: w3i2s1ka
-  
+ 
+ 
 ## 2.1
 logging:
   config: classpath:logback-spring.xml

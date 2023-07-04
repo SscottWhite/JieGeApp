@@ -1,5 +1,8 @@
 package com.ncstudy.config.securityconfig;
 
+import com.ncstudy.config.jwtconfig.JWTConfig;
+import com.ncstudy.config.securityconfig.securityhandler.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,17 +13,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.ncstudy.config.jwtconfig.JWTConfig;
-import com.ncstudy.config.securityconfig.securityhandler.JWTAuthenticationTokenFilter;
-import com.ncstudy.config.securityconfig.securityhandler.UserAuthAccessDeniedHandler;
-import com.ncstudy.config.securityconfig.securityhandler.UserAuthenticationEntryPointHandler;
-import com.ncstudy.config.securityconfig.securityhandler.UserAuthenticationProvider;
-import com.ncstudy.config.securityconfig.securityhandler.UserLoginFailureHandler;
-import com.ncstudy.config.securityconfig.securityhandler.UserLoginSuccessHandler;
-import com.ncstudy.config.securityconfig.securityhandler.UserLogoutSuccessHandler;
-
-import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -115,42 +107,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 @Override
 	 protected void configure(HttpSecurity http) throws Exception {
 		 
-		   http.authorizeRequests() // 2 ,授权管理
-			   		.antMatchers("/").permitAll()   // 拦截路径
-		   	        // .antMatchers("/hello/**").hasRole("vip1")
-					// .antMatchers("/getLoginQr/**").hasRole("vip2");
-		   	   		.anyRequest()	    //2.5 任何请求
-		   	   		.authenticated()    /// 3 都要认证		   	   		
-		   	   	.and()			   	   	
-			    .httpBasic()
-		       		.authenticationEntryPoint(userAuthenticationEntryPointHandler)  //用户认证
-		        .and()
-	   	   		.formLogin()
-			   	   .successHandler(userLoginSuccessHandler)  //正确登陆
-			   	   .failureHandler(userLoginFailureHandler)  //失败处理
-		   				// 1, 表单认证, 会有默认登陆界面    
-		   				// .loginPage("/toLogin"); //把默认的登陆页面指向我们自己的
-					    // .usernameParameter("user")
-						// .passwordParameter("pass")
-						// .loginProcessingUrl("/index"); // 登陆表单提交请求
-		       .and()
-		       .logout()
-		       		.logoutSuccessUrl("/")  //注销成功来到首页
-		       		.logoutSuccessHandler(userLogoutSuccessHandler)
-		       .and()
-		       .exceptionHandling()
-		       		.accessDeniedHandler(userAuthAccessDeniedHandler)//无权限的自定义处理类
-		       .and()
-		       .rememberMe()
-		       		.rememberMeParameter("remember") //其实是帮我们添加了cookie  \
-		       .and()
-		       .cors() //跨域
-		       
-		       .and()
-		       .addFilter(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig))
-		       
-		       .csrf()  
-		       		.disable();  //关闭csrf功能:跨站请求伪造,默认只能通过post方式提交logout请求
+//		   http.authorizeRequests() // 2 ,授权管理
+//			   		.antMatchers("/login").permitAll()   // 拦截路径
+//		   	        // .antMatchers("/hello/**").hasRole("vip1")
+//					// .antMatchers("/getLoginQr/**").hasRole("vip2");
+//		   	   		.anyRequest()	    //2.5 任何请求
+//		   	   		.authenticated()    /// 3 都要认证
+//		   	   	.and()
+//			    .httpBasic()
+//		       		.authenticationEntryPoint(userAuthenticationEntryPointHandler)  //用户认证
+//		        .and()
+//	   	   		.formLogin()
+//			   	   .successHandler(userLoginSuccessHandler)  //正确登陆
+//			   	   .failureHandler(userLoginFailureHandler)  //失败处理
+//		   				// 1, 表单认证, 会有默认登陆界面
+//		   				// .loginPage("/toLogin"); //把默认的登陆页面指向我们自己的
+//					    // .usernameParameter("user")
+//						// .passwordParameter("pass")
+//						// .loginProcessingUrl("/index"); // 登陆表单提交请求
+//		       .and()
+//		       .logout()
+//		       		.logoutSuccessUrl("/")  //注销成功来到首页
+//		       		.logoutSuccessHandler(userLogoutSuccessHandler)
+//		       .and()
+//		       .exceptionHandling()
+//		       		.accessDeniedHandler(userAuthAccessDeniedHandler)//无权限的自定义处理类
+//		       .and()
+//		       .rememberMe()
+//		       		.rememberMeParameter("remember") //其实是帮我们添加了cookie  \
+//		       .and()
+//		       .cors() //跨域
+//
+//		       .and()
+//		       .addFilter(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig))
+//
+//		       .csrf()
+//		       		.disable();  //关闭csrf功能:跨站请求伪造,默认只能通过post方式提交logout请求
 		   
 		   http.headers().cacheControl();
 		   

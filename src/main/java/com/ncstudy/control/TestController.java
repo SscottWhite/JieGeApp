@@ -1,35 +1,20 @@
 package com.ncstudy.control;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.github.pagehelper.PageInfo;
-import com.ncstudy.pojo.User;
-import com.ncstudy.service.UserService;
-import com.ncstudy.vo.PageVo;
-
-import cn.hutool.extra.qrcode.QrCodeUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.sql.SQLException;
 
 @Api
 @Controller
@@ -39,11 +24,11 @@ public class TestController {
 	    @Autowired
 	    DataSource dataSource;
 	   	
-	    @RequestMapping(path={"/","/helloworld"}, method=RequestMethod.GET)
-	    @ResponseBody
-	    public String hello() {
-	        return "HelloWorld";
-	    }
+//	    @RequestMapping(path={"/","/helloworld"}, method=RequestMethod.GET)
+//	    @ResponseBody
+//	    public String hello() {
+//	        return "HelloWorld";
+//	    }
 	    
 	    @PreAuthorize("hasRole('ROLE_vip2')")
 	    @RequestMapping(path="/hello1", method=RequestMethod.GET)

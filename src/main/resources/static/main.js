@@ -1,5 +1,12 @@
-const { PageHeader } = antd;
 
+// import FileExcel from "./filemod/fileExcel";
+
+
+// import {FileExcel} from "./filemod/fileExcel";
+
+// import File1 from "./filemod/fileExcel";
+
+const { PageHeader } = antd;
 const MyApp = () => {
 
     return (
@@ -12,6 +19,7 @@ const MyApp = () => {
                 title="Title"
                 subTitle="This is a subtitle"
             />
+            {/*<File1 />*/}
         </div>
     )
 }

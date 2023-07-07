@@ -143,8 +143,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //		       .csrf()
 //		       		.disable();  //关闭csrf功能:跨站请求伪造,默认只能通过post方式提交logout请求
+            http.csrf().disable();
 		   
-		   http.headers().cacheControl();
+//		   http.headers().cacheControl();
 		   
 		 //  http.addFilterBefore(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig), beforeFilter)
 	  }

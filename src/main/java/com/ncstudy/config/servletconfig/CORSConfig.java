@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
+//本地跨域请求直接用这个,  如果用@CrossOrigin, 还要考虑在response里面加入header
 @Configuration
 public class CORSConfig implements WebMvcConfigurer {
 
@@ -19,6 +21,6 @@ public class CORSConfig implements WebMvcConfigurer {
                 // 设置允许的header属性
                 .allowedHeaders("*");
                 // 跨域允许时间
-//                .maxAge(3600);
+//              .maxAge(3600);
     }
 }

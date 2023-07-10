@@ -1,10 +1,12 @@
 package com.ncstudy.control;
 
-import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.ncstudy.config.jwtconfig.JWTConfig;
+import com.ncstudy.service.ExcelService;
+import com.ncstudy.toolutils.ExcelSheetUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,34 +14,92 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ncstudy.config.jwtconfig.JWTConfig;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping
+@RequestMapping("excel")
 public class ExcelTestController {
 	
 	@Autowired
 	private JWTConfig jWTConfig;
 
-	@PostMapping("getExcel")
-	public void getExcelContent(@RequestParam("file")MultipartFile file) {
+	private final JWTConfig jwtConfig;
+	private final ExcelService excelService;
+
+	@Autowired
+	public ExcelTestController(JWTConfig jwtConfig, ExcelService excelService){
+		this.jwtConfig = jwtConfig;
+		this.excelService = excelService;
+	}
+
+
+	@PostMapping("getInfo")
+	public void getExcelContent(@RequestParam("file") MultipartFile file) {
 		
 		System.out.println(file.getContentType());
 		System.out.println(file.getName());
 		System.out.println(file.getOriginalFilename());
 		System.out.println(file.getSize());
 	}
+
+	@PostMapping("import")
+	public void importExcel(@RequestParam("file") MultipartFile file) {
+//		List<List<String>> list = ExcelUtil.parse(file);
+//		for (int i = 0; i < list.size(); i++) {
+//			List<String> list1 = list.get(i);
+//			excelService.excelImport(list1);
+//		}
+		try {
+			InputStream inputStream = file.getInputStream();
+			List<String> list = new ArrayList<>();
+			List<List<String>> listAll = new ArrayList<>();
+			XSSFWorkbook book = null;
+			XSSFSheet sheet = null;
+
+			book = new XSSFWorkbook(inputStream);
+			sheet = book.getSheetAt(0); //取第一个表格
+			System.out.println("sheet.getLastRowNum():"+sheet.getLastRowNum());
+
+			int split = 20;
+			for(int i=0; i < (sheet.getLastRowNum()/split)+1; i++){
+				list = new ArrayList<>();
+				int max = i*split;
+				for(int j=max;j<(i+1)*split;j++){
+					XSSFRow row = sheet.getRow(j);
+					list.add(ExcelSheetUtil.getCellValue(row.getCell(0)));
+				}
+				listAll.add(list);
+			}
+
+			System.out.println(listAll.size());
+			for (int i = 0; i < listAll.size(); i++) {
+				for(int j=0;j<listAll.get(i).size();j++){
+					System.out.println(listAll.get(i).get(j));
+				}
+			}
+			book.close();
+			inputStream.close();
+		} catch (IOException e) {
+			System.out.println(e.getStackTrace());
+			throw new RuntimeException(e);
+		}
+
+	}
 	
-	@RequestMapping("getConfig")
+	@PostMapping("getConfig")
 	public void getConfig(HttpServletRequest request, HttpSession session) {
 		
 		log.info(request.getHeader(jWTConfig.getTokenHeader()));
 	}
 	
-	@RequestMapping("getHeader")
+	@PostMapping("getHeader")
 	public void getHeader(HttpServletRequest request, HttpSession session) {
 	    //获取客户端向服务器端传送数据的协议名称
 	    System.out.println("rotocol: " + request.getProtocol());

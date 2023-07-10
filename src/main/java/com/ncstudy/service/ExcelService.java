@@ -1,18 +1,22 @@
 package com.ncstudy.service;
 
-import org.springframework.scheduling.annotation.Async;
+import com.ncstudy.mapper.ExcelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.swagger.annotations.ApiOperation;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import java.util.List;
 
-@EnableSwagger2
 @Service
 public class ExcelService {
 
-	@ApiOperation(value = "多线程处理excel内容")
-	@Async("task1")
-	public void excelHold() {
-		
+	private final ExcelMapper excelMapper;
+
+	@Autowired
+	public ExcelService(ExcelMapper excelMapper){
+		this.excelMapper = excelMapper;
+	}
+
+	public void excelImport(List<String> list) {
+		excelMapper.importExcel(list);
 	}
 }

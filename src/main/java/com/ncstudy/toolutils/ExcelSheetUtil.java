@@ -256,7 +256,7 @@ public final class ExcelSheetUtil {
 		return cellValue;
 	}
 	
-	private static String getCellValue(XSSFCell cell) {
+	public  static String getCellValue(XSSFCell cell) {
 		String cellValue = null;
 		if (cell != null) {
 			switch (cell.getCellType()) {

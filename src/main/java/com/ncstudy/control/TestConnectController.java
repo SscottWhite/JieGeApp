@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class TestConnectController {
 	
 	@PostMapping("postbody")
-	@ResponseBody
+//	@ResponseBody
    	public ResultDO<UserVo> postBody(@RequestBody UserVo userVo) {
    		System.out.println(userVo.getUsername()+"+"+userVo.getPassword());
 		ResultDO resultDO = new ResultDO(ResultCode.TRUE,true);
@@ -34,8 +34,11 @@ public class TestConnectController {
 
 
 	@GetMapping("getparam")
-	public void getParam(@RequestParam("username") String username){
+	public ResultDO<UserVo> getParam(@RequestParam("username") String username){
 		System.out.println(username);
+		ResultDO resultDO = new ResultDO(ResultCode.TRUE,true);
+		resultDO.setData(new UserVo("成功了","2","你成功了"));
+		return resultDO;
 	}
 
 }

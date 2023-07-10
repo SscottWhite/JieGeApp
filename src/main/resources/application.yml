@@ -17,8 +17,12 @@ spring:
     port: 6380
     database: 0
     password: w3i2s1ka
- 
- 
+
+  servlet:
+    multipart:
+      max-request-size: 80MB
+      max-file-size: 80MB
+
 ## 2.1
 logging:
   config: classpath:logback-spring.xml

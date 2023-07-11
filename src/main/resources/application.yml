@@ -53,3 +53,12 @@ server:
     session: 
       cookie: 
         path: /nothing
+
+#自定义 thread属性
+async:
+  thread:
+    core_pool_size: 10
+    max_pool_size: 100
+    keep_alive_time: 10
+    queue_capacity: 200
+    thread_name_prefix: 'Async-Service-'

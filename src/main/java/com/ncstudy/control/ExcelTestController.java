@@ -2,25 +2,28 @@ package com.ncstudy.control;
 
 import com.ncstudy.config.jwtconfig.JWTConfig;
 import com.ncstudy.service.ExcelService;
+import com.ncstudy.service.TuserService;
 import com.ncstudy.toolutils.ExcelSheetUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.concurrent.*;
+
+import com.ncstudy.pojo.Tuser;
 
 @Slf4j
 @RestController
@@ -32,6 +35,45 @@ public class ExcelTestController {
 
 	private final JWTConfig jwtConfig;
 	private final ExcelService excelService;
+
+	@Autowired
+	private TuserService tuserService;
+
+	@GetMapping("save")
+	public void saveTuser(){
+		long startTime = System.currentTimeMillis();
+		for (int i=0;i<=1000;i++) {
+			tuserService.saveTuser(new Tuser(i, "jake"+i, (int)(Math.random() * 100)));
+		}
+		System.out.println(System.currentTimeMillis()-startTime);
+	}
+
+	@GetMapping("saveList/{nums1}/{nums2}")
+	public void saveList(@PathVariable("nums1") Integer nums1, @PathVariable("nums2") Integer nums2){
+		ExecutorService es = new ThreadPoolExecutor(10, 20,
+				0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
+		long startTime = System.currentTimeMillis();
+		List<Tuser> list = new ArrayList<>();
+		List<List<Tuser>> lists = new ArrayList<>();
+
+		for (int i=1;i<=nums1;i++) {
+			list.add(new Tuser(i, "jake"+i, (int)(Math.random() * 100)));
+			if(i % nums2 == 0){
+				lists.add(list);
+				list = new ArrayList<>();
+			}
+		}
+
+		for (int i = 0; i < lists.size(); i++) {
+			List<Tuser>  newList = lists.get(i);
+			es.execute(() -> {
+				tuserService.saveList(newList);
+			});
+		}
+
+		es.shutdown();
+		System.out.println(System.currentTimeMillis()-startTime);
+	}
 
 	@Autowired
 	public ExcelTestController(JWTConfig jwtConfig, ExcelService excelService){
@@ -63,11 +105,12 @@ public class ExcelTestController {
 			XSSFWorkbook book = null;
 			XSSFSheet sheet = null;
 
+			Long begin = new Date().getTime();
 			book = new XSSFWorkbook(inputStream);
 			sheet = book.getSheetAt(0); //取第一个表格
 			System.out.println("sheet.getLastRowNum():"+sheet.getLastRowNum());
 
-			int split = 20;
+			int split = 500;
 			for(int i=0; i < (sheet.getLastRowNum()/split)+1; i++){
 				list = new ArrayList<>();
 				int max = i*split;
@@ -77,13 +120,13 @@ public class ExcelTestController {
 				}
 				listAll.add(list);
 			}
-
+			System.out.println("时间差:"+ (new Date().getTime()-begin));
 			System.out.println(listAll.size());
-			for (int i = 0; i < listAll.size(); i++) {
-				for(int j=0;j<listAll.get(i).size();j++){
-					System.out.println(listAll.get(i).get(j));
-				}
-			}
+//			for (int i = 0; i < listAll.size(); i++) {
+//				for(int j=0;j<listAll.get(i).size();j++){
+//					System.out.println(listAll.get(i).get(j));
+//				}
+//			}
 			book.close();
 			inputStream.close();
 		} catch (IOException e) {

@@ -21,17 +21,19 @@ public class TestMain {
 //            System.out.println(key+":"+value);
 //        });
 
-      //   test1();//
+         test1();//
          test3();
          test4();
     }
 
     public static void  test1(){
         List<Integer> list = new ArrayList();
-        for (int i = 0; i < 890; i++) {
+        for (int i = 0; i < 600; i++) {
             list.add(i);
         }
-        ExecutorService es = Executors.newFixedThreadPool(4, new ThreadFactoryBuilder().setNameFormat("touch-send-worker-%d").build());
+       // ExecutorService es = Executors.newFixedThreadPool(100, new ThreadFactoryBuilder().setNameFormat("touch-send-worker-%d").build());
+        ExecutorService es = new ThreadPoolExecutor(4,5,0,
+                    TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(),new ThreadPoolExecutor.DiscardPolicy());
         int size = list.size();
         int batch = size % 100 == 0 ? size / 100 : size / 100 + 1;
         for (int i = 0; i < batch; i++) {
@@ -39,10 +41,10 @@ public class TestMain {
             if(end > size) end = size;
             List<Integer>  newList = list.subList(i*100,end);
             es.execute(() -> test2(newList));
-            es.shutdown();
+          //  es.shutdown();
             if(es.isTerminated()) break;
         }
-
+        es.shutdown();
     }
 
     public static void test2(List<Integer> list){

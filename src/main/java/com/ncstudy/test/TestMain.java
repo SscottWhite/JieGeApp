@@ -1,4 +1,4 @@
-package com.ncstudy.control;
+package com.ncstudy.test;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 

@@ -38,6 +38,9 @@ public class TestMain2 {
         // 在 main 中打印两个线程自增完 得到的 count
         System.out.println(counter.count);
     }
+
+
+
 }
 
 

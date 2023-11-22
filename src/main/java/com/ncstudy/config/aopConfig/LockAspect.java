@@ -30,9 +30,9 @@ public class LockAspect {
         lock.lock();
         Object object = null;
         try {
-            System.out.println("测前");
+            System.out.println("注解 -- 测前");
             object = joinPoint.proceed();
-            System.out.println("测后");
+            System.out.println("注解 -- 测后");
         } catch (Throwable e) {
             throw new RuntimeException(e);
         } finally {

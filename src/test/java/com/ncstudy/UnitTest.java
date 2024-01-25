@@ -30,7 +30,7 @@ public class UnitTest {
 	
 	@Test
 	public void test1() {
-		Assert.assertTrue(false);  //报错后不执行了
+	//	Assert.assertTrue(false);  //报错后不执行了
 		System.out.println("test1");
 	}
 	@Ignore

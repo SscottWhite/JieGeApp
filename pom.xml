@@ -278,13 +278,14 @@
 	    <artifactId>spring-boot-starter-data-redis</artifactId>
 	</dependency>
 
+<!--15 支付宝 -->
 	  <dependency>
 		  <groupId>com.alipay.sdk</groupId>
 		  <artifactId>alipay-sdk-java</artifactId>
 		  <version>4.38.192.ALL</version>
 	  </dependency>
 
-	  <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+<!--16生成二维码 https://mvnrepository.com/artifact/com.google.zxing/core -->
 	  <dependency>
 		  <groupId>com.google.zxing</groupId>
 		  <artifactId>core</artifactId>

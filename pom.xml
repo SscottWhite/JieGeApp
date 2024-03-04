@@ -292,6 +292,38 @@
 		  <version>3.4.1</version>
 	  </dependency>
 
+
+	  <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
+	  <dependency>
+		  <groupId>org.apache.tika</groupId>
+		  <artifactId>tika-core</artifactId>
+		  <version>2.8.0</version>
+	  </dependency>
+	  <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-parsers-standard-package -->
+	  <dependency>
+		  <groupId>org.apache.tika</groupId>
+		  <artifactId>tika-parsers-standard-package</artifactId>
+		  <version>2.8.0</version>
+	  </dependency>
+
+
+
+	  <!--	  <dependency>-->
+<!--		  <groupId>org.apache.tika</groupId>-->
+<!--		  <artifactId>tika-bom</artifactId>-->
+<!--		  <version>2.8.0</version>-->
+<!--		  <type>pom</type>-->
+<!--		  <scope>import</scope>-->
+<!--	  </dependency>-->
+
+<!--	  <dependency>-->
+<!--		  <groupId>org.apache.tika</groupId>-->
+<!--		  <artifactId>tika-core</artifactId>-->
+<!--	  </dependency>-->
+<!--	  <dependency>-->
+<!--		  <groupId>org.apache.tika</groupId>-->
+<!--		  <artifactId>tika-parsers-standard-package</artifactId>-->
+<!--	  </dependency>-->
   </dependencies>
   
   <build>

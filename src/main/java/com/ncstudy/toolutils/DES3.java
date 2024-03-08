@@ -74,5 +74,9 @@ public class DES3 {
             return src;
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println(encryptThreeDESECB("123",DES3KEY));
+    }
 }
 

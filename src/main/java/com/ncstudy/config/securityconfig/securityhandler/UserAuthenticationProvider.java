@@ -28,6 +28,8 @@ import com.ncstudy.toolutils.DES3;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.crypto.IllegalBlockSizeException;
+
 /**
  * 这里是验证用户名密码的地方  只要输入后,点击第一步来到这
  * @author KJS_352
@@ -52,7 +54,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		
 		String username = (String) authentication.getPrincipal(); // 用户名
 		String password = (String) authentication.getCredentials();// 密码
-		
+
+		System.out.println("第一步:"+username+":"+password);
 		//查询并验证的代码
 		SelfUserEntity userEntity = selfUserDetailsService.loadUserByUsername(username); // 为什么要走这一步	
 		

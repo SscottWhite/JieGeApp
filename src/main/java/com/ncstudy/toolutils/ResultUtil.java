@@ -1,8 +1,12 @@
 package com.ncstudy.toolutils;
 
 import com.alibaba.fastjson.JSON;
+import com.ncstudy.config.jwtconfig.JWTConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,13 +31,32 @@ public class ResultUtil {
      * @Param  resultMap 数据
      * @Return void
      */
-    public static void responseJson(ServletResponse response, Map<String, Object> resultMap){
+    public static void responseJson(HttpServletResponse response, Map<String, Object> resultMap){
         PrintWriter out = null;
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
             out = response.getWriter();
             out.println(JSON.toJSONString(resultMap));
+        } catch (Exception e) {
+            log.error("【JSON输出异常】"+e);
+        }finally{
+            if(out!=null){
+                out.flush();
+                out.close();
+            }
+        }
+    }
+
+    public static void responseJson(HttpServletResponse response, Map<String, Object> resultMap,String token){
+        PrintWriter out = null;
+        try {
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.setHeader(token, (String) resultMap.get(token));
+            out = response.getWriter();
+            out.println(JSON.toJSONString(resultMap));
+
         } catch (Exception e) {
             log.error("【JSON输出异常】"+e);
         }finally{

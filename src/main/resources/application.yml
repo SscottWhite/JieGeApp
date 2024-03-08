@@ -2,7 +2,7 @@ spring:
 ## 1.1
   profiles:
     active:
-    - quartz  ##定时器
+#   - quartz  ##定时器
     - jdbc    ##数据库
     - jwt
   scheduling:
@@ -11,6 +11,7 @@ spring:
 #    hibernate:
 #      ddl-auto: update
 #    show-sql: true
+
 ## 1.2
 #  redis:
 #    host: 47.102.155.32

@@ -35,7 +35,7 @@ public class JobController {
     
     @RequestMapping("/deletejob")
     public void deletejob() {
-            quartzService.removeJob("job1", "test","job1", "test");
+            quartzService.removeJob("detail_name", "detail_group_name","trigger1_name", "trigger1_group_name");
     }
     
     @RequestMapping("/pauseJob")

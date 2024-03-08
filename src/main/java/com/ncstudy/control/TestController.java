@@ -30,7 +30,7 @@ public class TestController {
 //	        return "HelloWorld";
 //	    }
 	    
-	    @PreAuthorize("hasRole('ROLE_vip2')")
+	    @PreAuthorize("hasRole('ROLE_sys:user:info')")
 	    @RequestMapping(path="/hello1", method=RequestMethod.GET)
 	    @ResponseBody
 	    public void contextLoads() throws SQLException {
@@ -50,11 +50,11 @@ public class TestController {
 	    }
 	    
 
-	    @PreAuthorize("hasRole('ROLE_vip1')")
+	    @PreAuthorize("hasRole('ROLE_sys:role:info')")
 	    @RequestMapping(path={"/hello2*"}, method=RequestMethod.GET)
 	    @ResponseBody
 	    public String hello2() {
-	        return "hasRole('ROLE_vip1')";
+	        return "hasRole('ROLE_sys:role:info')";
 	    }
 
 	    @PreAuthorize("hasRole('ROLE_sys:user:info') or hasRole('ROLE_vip2')")

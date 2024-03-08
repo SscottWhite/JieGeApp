@@ -57,7 +57,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 			map.put("code", "200");
 			map.put("msg", "登陆成功");
 			map.put(jWTConfig.getTokenHeader(), token);						
-		ResultUtil.responseJson(response, map);
+		ResultUtil.responseJson(response, map,jWTConfig.getTokenHeader());
 		
 		//简单保存下
 		loginInfoService.saveLoginInfo(

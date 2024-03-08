@@ -38,7 +38,7 @@ public class QuartzManage {
 		private Scheduler scheduler;
 		
 
-		@PostConstruct   //这个注释是说项目启动可以直接自动启动
+		//@PostConstruct   //这个注释是说项目启动可以直接自动启动
 		public void startScheduler() {
 			try {
 				scheduler.start();			

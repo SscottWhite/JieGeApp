@@ -12,7 +12,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+
+import java.util.UUID;
 
 
 /**
@@ -80,6 +88,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     /**
      * 封装用户
+	 *
+	 * 用户登录时拦截
      */
     //定义认证规则  , 直接加入了密码保护
     @Override
@@ -89,61 +99,69 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       //要想我们的项目还能够正常登陆，需要修改一下configure中的代码。我们要将前端传过来的密码进行某种方式加密
       //spring security 官方推荐的是使用bcrypt加密方式。
       
-//	   build.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-//             .withUser("kuangshen").password(new BCryptPasswordEncoder().encode("123456")).roles("vip2")
-//             .and().withUser("root").password(new BCryptPasswordEncoder().encode("123456")).roles("vip1","vip2")
-//             .and().withUser("guest").password(new BCryptPasswordEncoder().encode("123456")).roles("vip1");
-	   
+	   // build.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+       //      .withUser("kuangshen").password(new BCryptPasswordEncoder().encode("123456")).roles("vip2")
+       //      .and().withUser("root").password(new BCryptPasswordEncoder().encode("123456")).roles("vip1","vip2")
+       //      .and().withUser("guest").password(new BCryptPasswordEncoder().encode("123456")).roles("vip1");
+	   //
 	   //虽然可以通过上面的方法验证用户 , 但是不适用
 	   //但是数据库的时代怎么能用这简单的方式,  我们直接验证并封装一个用户, 而不是自己写
 	   // ****理解这一步, 基本相当于理解了一大半
-	   build.authenticationProvider(userAuthenticationProvider);   
+	   build.authenticationProvider(userAuthenticationProvider);
+
+	   build.userDetailsService(userDetailsService());
 	       
     }
 	
 	 /**
 	  * 核心内容, 里面包含了各种情况
+	  *
+	  * 项目启动时运行, 主要是加入各种方法和权限
+	  *
+	  * https://blog.csdn.net/qq_41076797/article/details/129969852
 	  */
 	 @Override
 	 protected void configure(HttpSecurity http) throws Exception {
-		 
-//		   http.authorizeRequests() // 2 ,授权管理
-//			   		.antMatchers("/login").permitAll()   // 拦截路径
-//		   	        // .antMatchers("/hello/**").hasRole("vip1")
-//					// .antMatchers("/getLoginQr/**").hasRole("vip2");
-//		   	   		.anyRequest()	    //2.5 任何请求
-//		   	   		.authenticated()    /// 3 都要认证
-//		   	   	.and()
-//			    .httpBasic()
-//		       		.authenticationEntryPoint(userAuthenticationEntryPointHandler)  //用户认证
-//		        .and()
-//	   	   		.formLogin()
-//			   	   .successHandler(userLoginSuccessHandler)  //正确登陆
-//			   	   .failureHandler(userLoginFailureHandler)  //失败处理
-//		   				// 1, 表单认证, 会有默认登陆界面
-//		   				// .loginPage("/toLogin"); //把默认的登陆页面指向我们自己的
-//					    // .usernameParameter("user")
-//						// .passwordParameter("pass")
-//						// .loginProcessingUrl("/index"); // 登陆表单提交请求
-//		       .and()
-//		       .logout()
-//		       		.logoutSuccessUrl("/")  //注销成功来到首页
-//		       		.logoutSuccessHandler(userLogoutSuccessHandler)
-//		       .and()
-//		       .exceptionHandling()
-//		       		.accessDeniedHandler(userAuthAccessDeniedHandler)//无权限的自定义处理类
-//		       .and()
-//		       .rememberMe()
-//		       		.rememberMeParameter("remember") //其实是帮我们添加了cookie  \
-//		       .and()
-//		       .cors() //跨域
-//
-//		       .and()
-//		       .addFilter(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig))
-//
-//		       .csrf()
-//		       		.disable();  //关闭csrf功能:跨站请求伪造,默认只能通过post方式提交logout请求
-            http.csrf().disable();
+
+		 System.out.println("第二步:验证");
+		   http.authorizeRequests() // 2 ,授权管理
+			   		.antMatchers("/login").anonymous()   // 拦截路径
+		   	        // .antMatchers("/hello/**").hasRole("vip1")
+					// .antMatchers("/getLoginQr/**").hasRole("vip2");
+		   	   		.anyRequest()	    //2.5 任何请求
+		   	   		.authenticated()    /// 3 都要认证
+		   	   	.and()
+			    .httpBasic()
+		       		.authenticationEntryPoint(userAuthenticationEntryPointHandler)  //用户认证
+		        .and()
+	   	   		.formLogin()
+			   	   .successHandler(userLoginSuccessHandler)  //正确登陆
+			   	   .failureHandler(userLoginFailureHandler)  //失败处理
+		   				// 1, 表单认证, 会有默认登陆界面
+		   				// .loginPage("/toLogin"); //把默认的登陆页面指向我们自己的
+					    // .usernameParameter("user")
+						// .passwordParameter("pass")
+						// .loginProcessingUrl("/index"); // 登陆表单提交请求
+		       .and()
+		       .logout()
+		       		.logoutSuccessUrl("/")  //注销成功来到首页
+		       		.logoutSuccessHandler(userLogoutSuccessHandler)
+		       .and()
+		       .exceptionHandling()
+		       		.accessDeniedHandler(userAuthAccessDeniedHandler)//无权限的自定义处理类
+		       .and()
+		       .rememberMe()
+		       		//.rememberMeParameter("remember") //其实是帮我们添加了cookie  \
+				   .rememberMeServices(rememberMeServices())
+		       .and()
+		       .cors() //跨域
+
+		       .and()
+		       .addFilter(new JWTAuthenticationTokenFilter(authenticationManager(),jWTConfig))
+
+		       .csrf()
+		       		.disable();  //关闭csrf功能:跨站请求伪造,默认只能通过post方式提交logout请求
+       //    http.csrf().disable();
 		   
 //		   http.headers().cacheControl();
 		   
@@ -166,5 +184,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	//   public BCryptPasswordEncoder passwordEncoder() {
 //	       return new BCryptPasswordEncoder();
 	//   }
+	@Bean
+	public UserDetailsService userDetailsService(){
+		InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+		//inMemoryUserDetailsManager.createUser(User.withUsername("root").password("{noop}123").roles("admin").build());
+		return inMemoryUserDetailsManager;
+	}
 
+	@Override
+	@Bean
+	public UserDetailsService userDetailsServiceBean() throws Exception {
+		return super.userDetailsServiceBean();
+	}
+
+	@Bean
+	public RememberMeServices rememberMeServices(){
+		return new PersistentTokenBasedRememberMeServices(UUID.randomUUID().toString(),
+				userDetailsService(),
+				new InMemoryTokenRepositoryImpl());
+	}
 }

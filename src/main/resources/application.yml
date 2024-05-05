@@ -66,6 +66,7 @@ server:
     session: 
       cookie: 
         path: /nothing
+  port: 8001
 
 #自定义 thread属性
 async:

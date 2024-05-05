@@ -125,6 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		 System.out.println("第二步:验证");
 		   http.authorizeRequests() // 2 ,授权管理
+				  //.permitAll()
 			   		.antMatchers("/login").anonymous()   // 拦截路径
 		   	        // .antMatchers("/hello/**").hasRole("vip1")
 					// .antMatchers("/getLoginQr/**").hasRole("vip2");
@@ -135,6 +136,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		       		.authenticationEntryPoint(userAuthenticationEntryPointHandler)  //用户认证
 		        .and()
 	   	   		.formLogin()
+				   .loginProcessingUrl("/login")
 			   	   .successHandler(userLoginSuccessHandler)  //正确登陆
 			   	   .failureHandler(userLoginFailureHandler)  //失败处理
 		   				// 1, 表单认证, 会有默认登陆界面

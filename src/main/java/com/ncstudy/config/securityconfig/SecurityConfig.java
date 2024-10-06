@@ -32,7 +32,7 @@ import java.util.UUID;
  */
 @Slf4j
 @Configuration
-@EnableWebSecurity // 开启WebSecurity模式
+// @EnableWebSecurity // 开启WebSecurity模式
 //prePostEnabled属性决定Spring Security在接口前注解是否可用@PreAuthorize,@PostAuthorize等注解,设置为true,会拦截加了这些注解的接口
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

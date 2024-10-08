@@ -17,8 +17,8 @@ import lombok.extern.slf4j.Slf4j;
  * @author KJS_352
  *
  */
-@Configuration
-@EnableScheduling
+// @Configuration       //注释掉不启动
+// @EnableScheduling   //注释掉不启动
 @Slf4j
 public class QuartzConfiguration {
     /** 

@@ -42,7 +42,7 @@ public class ExcelTestController {
 	@GetMapping("save")
 	public void saveTuser(){
 		long startTime = System.currentTimeMillis();
-		for (int i=0;i<=1000;i++) {
+		for (int i=0;i<=1;i++) {
 			tuserService.saveTuser(new Tuser(i, "jake"+i, (int)(Math.random() * 100)));
 		}
 		System.out.println(System.currentTimeMillis()-startTime);

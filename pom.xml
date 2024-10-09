@@ -344,7 +344,11 @@
 		  <version>5.0.5</version>
 	  </dependency>
 
-
+	  <dependency>
+		  <groupId>ws.schild</groupId>
+		  <artifactId>jave-all-deps</artifactId>
+		  <version>3.5.0</version>
+	  </dependency>
 
   </dependencies>
   

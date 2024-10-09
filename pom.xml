@@ -292,14 +292,12 @@
 		  <version>3.4.1</version>
 	  </dependency>
 
-
-	  <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
+<!--  TiKa -->
 	  <dependency>
 		  <groupId>org.apache.tika</groupId>
 		  <artifactId>tika-core</artifactId>
 		  <version>2.8.0</version>
 	  </dependency>
-	  <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-parsers-standard-package -->
 	  <dependency>
 		  <groupId>org.apache.tika</groupId>
 		  <artifactId>tika-parsers-standard-package</artifactId>
@@ -339,6 +337,15 @@
 		  <artifactId>itext-asian</artifactId>
 		  <version>5.2.0</version>
 	  </dependency>
+
+	  <dependency>
+		  <groupId>com.itextpdf</groupId>
+		  <artifactId>html2pdf</artifactId>
+		  <version>5.0.5</version>
+	  </dependency>
+
+
+
   </dependencies>
   
   <build>

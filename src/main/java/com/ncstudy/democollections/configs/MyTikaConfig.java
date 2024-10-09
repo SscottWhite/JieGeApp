@@ -1,4 +1,4 @@
-package com.ncstudy.config.tickconfig;
+package com.ncstudy.democollections.configs;
 
 
 import java.io.IOException;

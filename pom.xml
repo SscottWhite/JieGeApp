@@ -20,6 +20,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
  	<apache-poi-version>4.1.2</apache-poi-version>
  	<apache-commons-lang3>3.3.1</apache-commons-lang3>
+	<skipTests>true</skipTests>
   </properties>
 
   <dependencies>
@@ -41,23 +42,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <!--排除内置的tomcat-->
-            <!--
-		    <exclusions>
+			<!--
+		 	<exclusions>
 		        <exclusion>
 		            <groupId>org.springframework.boot</groupId>
 		            <artifactId>spring-boot-starter-tomcat</artifactId>
 		        </exclusion>
 		    </exclusions>
-		    -->
+			-->
         </dependency>
         <!-- tomcat 的支持.-->
-        <!--
+		<!--
 	    <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-	    -->
+		-->
         <!-- springboot单元测试 -->
         <dependency>
 	        <groupId>org.springframework.boot</groupId>

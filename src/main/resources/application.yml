@@ -77,11 +77,3 @@ async:
     queue_capacity: 200
     thread_name_prefix: 'Async-Service-'
 
-## 解密二选一
-  # password 注释去掉
-  # 在启动配置里面 Vm OPtions 加上 -Djasypt.encryptor.password=wiska123
-  # https://mp.weixin.qq.com/s/B4Np7uqanOS-Fjm4yOrdgg  SpringBoot中实现MySQL账号密码加密
-jasypt:
-  encryptor:
-    algorithm: PBEWithMD5AndDES
-#    password: wiska123

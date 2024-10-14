@@ -6,12 +6,9 @@ spring:
     druid:
   #  username: nRhK0iyRnyE=
   #  password: 9XR5m1pkH6MZgwrSB_numQ==
-#     username: root
-#     password: wiska123
-#     url: jdbc:mysql://8.153.38.18:3310/JieGeApp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
-     username: ENC(TkD7zYYCfMwQcw67s4wNvu5iOs4zc52f) #root #ncstudy
-     password: ENC(SjwyG3OlBQhxV+EJIpeAVwNxbFsX3+t/3GHZex3v9G4=) #wiska123
-     url: ENC(usXskLfwTYEzsG4b57EOwkveVKw6kPHGwjSL9uyHSTfumCW1NSdw5AiVM5Wz77jrMSxbqDmnfv0RO5DgcKcUbCu5P1iFnoNs9Qsfh3SMHwNykmAvtOWMmdEKmwIi60XT8Wn53knLYps+HEqbBoKeVw3qfcQk8K97D402G2JNw3I=)
+     username: root
+     password: wiska123
+     url: jdbc:mysql://8.153.38.18:3310/jiegeapp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
      driver-class-name: com.mysql.jdbc.Driver
      #Spring Boot 默认是不注入这些属性值的，需要自己绑定
      #druid 数据源专有配置

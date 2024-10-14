@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
                                    //(exclude={DruidDataSourceAutoConfigure.class,DataSourceAutoConfiguration.class})
 @ServletComponentScan("com.ncstudy.config.servletconfig")
 @EnableConfigurationProperties     //使@ConfigurationProperties(prefix = "xxx")注解的类生效
-public class SpringBootAppStarter {// extends SpringBootServletInitializer {
+public class SpringBootAppStarter  extends SpringBootServletInitializer {
   public static void main( String[] args ) {
 
       SpringApplication springApplication = new SpringApplication(SpringBootAppStarter.class);
@@ -28,8 +28,8 @@ public class SpringBootAppStarter {// extends SpringBootServletInitializer {
      // SpringApplication.run(SpringBootAppStarter.class, args);
   }
 
-    // @Override
-    // protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-    //     return builder.sources(this.getClass());
-    // }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(this.getClass());
+    }
 }

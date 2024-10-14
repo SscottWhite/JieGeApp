@@ -4,8 +4,6 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource 
     #导入springboot-druid
     druid:
-  #  username: nRhK0iyRnyE=
-  #  password: 9XR5m1pkH6MZgwrSB_numQ==
      username: root
      password: wiska123
      url: jdbc:mysql://8.153.38.18:3310/jiegeapp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true

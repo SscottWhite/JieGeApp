@@ -42,23 +42,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <!--排除内置的tomcat-->
-
-		 	<exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-tomcat</artifactId>
-		        </exclusion>
-		    </exclusions>
-
+		 <!--
+          <exclusions>
+             <exclusion>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-starter-tomcat</artifactId>
+             </exclusion>
+         </exclusions>
+         -->
         </dependency>
         <!-- tomcat 的支持.-->
-
+		<!--
 	    <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-
+	    -->
         <!-- springboot单元测试 -->
         <dependency>
 	        <groupId>org.springframework.boot</groupId>
@@ -218,20 +218,14 @@
 		<artifactId>jaxb-api</artifactId>
 		<version>2.3.0</version>
 	</dependency>
-	
-<!-- 10 二维码 https://mvnrepository.com/artifact/com.google.zxing/core -->
-	<dependency>
-	    <groupId>cn.hutool</groupId>
-	    <artifactId>hutool-all</artifactId>
-	    <version>5.7.22</version>
-	</dependency>
-	<dependency>
-	    <groupId>com.google.zxing</groupId>
-	    <artifactId>core</artifactId>
-	    <version>3.3.3</version>
-	</dependency>
 
-	
+
+
+	  <dependency>
+		  <groupId>cn.hutool</groupId>
+		  <artifactId>hutool-all</artifactId>
+		  <version>5.7.22</version>
+	  </dependency>
 <!-- 11 jwt  https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
     <dependency>
          <groupId>org.springframework.security</groupId>

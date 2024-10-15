@@ -20,3 +20,16 @@
 		  3.2 失败的handler会根据报错信息返回一些内容
 13, 在securityConfig中可以看到在User...Provider中 返回的User...Token
 	而在JWT的拦截类 JWT...Filter中也返回 User...Token, 所以是先拦截这个, 返回数据, 就不需要再重新验证了
+
+
+
+14, 测试流程
+filter dofilter  --serlvet拦截器
+prehandler  now  --java 拦截器
+control -- 测前   -- AOP设置
+测试中			-- 接口运行结果
+control -- 测后   -- AOP设置
+posthandler  now  --java 拦截器
+afterCompletion  now  --java 拦截器
+
+15,

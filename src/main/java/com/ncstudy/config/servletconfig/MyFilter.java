@@ -36,7 +36,7 @@ public class MyFilter implements Filter{
 
 	    HttpServletRequest req = (HttpServletRequest) request;
 	    HttpServletResponse resp = (HttpServletResponse) response;
-		System.out.println("filter dofilter");
+		//System.out.println("filter dofilter");
 //	    String username="";
 //		Cookie[] cookies = req.getCookies();
 //		for(int i=0; i<cookies.length; i++){

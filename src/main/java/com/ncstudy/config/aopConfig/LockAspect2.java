@@ -29,9 +29,9 @@ public class LockAspect2 {
         lock.lock();
         Object object = null;
         try {
-            System.out.println("control -- 测前");
+            //System.out.println("control -- 测前");
             object = joinPoint.proceed();
-            System.out.println("control -- 测后");
+            //System.out.println("control -- 测后");
         } catch (Throwable e) {
             throw new RuntimeException(e);
         } finally {

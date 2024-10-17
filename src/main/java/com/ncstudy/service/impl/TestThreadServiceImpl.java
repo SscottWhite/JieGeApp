@@ -12,8 +12,8 @@ public class TestThreadServiceImpl implements TestThreadService {
     @Async("getTaskExecutor")
     public void testAsync() {
         log.info("task start");
-        System.out.println("任务启动1");
-        System.out.println("任务启动2");
+        log.info("任务启动1");
+        log.info("任务启动2");
         log.info("task end");
     }
 }

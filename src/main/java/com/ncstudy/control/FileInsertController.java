@@ -17,13 +17,14 @@ import java.util.concurrent.*;
 public class FileInsertController {
 
     @GetMapping("fileinsert")
-    public void fileInsert(){
+    public void fileInsert() throws ExecutionException, InterruptedException {
         ExecutorService es = new ThreadPoolExecutor(
                 2,4,60, TimeUnit.SECONDS,
                 new SynchronousQueue<>(),
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.AbortPolicy()
         );
+
 
         List<Future<String>> fList = new ArrayList<>();
         List<Person> list = new ArrayList<>();
@@ -51,6 +52,23 @@ public class FileInsertController {
             fList.add(futures);
         }
 
+       // es.shutdown();
+        for (Future future: fList) {
+            try {
+                String str ;
+                if(null != future ){
+                    str = future.get().toString();
+                    System.out.println("##############current thread id ="+Thread.currentThread().getName()+",result="+str);
+                }else{
+                    System.err.println("失败");
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
         es.shutdown();
+        if(es.isShutdown())
+            log.info("完成");
     }
 }

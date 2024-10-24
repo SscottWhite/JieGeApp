@@ -1,6 +1,7 @@
 package com.ncstudy.task;
 
 import com.ncstudy.vo.Person;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+@Slf4j
 public class FileInsertCallable implements Callable {
 
 
@@ -22,6 +24,7 @@ public class FileInsertCallable implements Callable {
     }
     @Override
     public Object call()  {
+        log.error(String.format("此批数据的段数为:%s 此段数据的数据条数为:%s",page,list.size()));
         lock.lock();
         Boolean result = Boolean.TRUE;
         if(null != list && list.size() >0){
@@ -65,6 +68,7 @@ public class FileInsertCallable implements Callable {
 
             }
         }
-        return null;
+        lock.unlock();
+        return result;
     }
 }
